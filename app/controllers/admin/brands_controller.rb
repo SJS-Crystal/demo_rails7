@@ -1,4 +1,4 @@
-class Admin::BrandsController < ApplicationController
+class Admin::BrandsController < Admin::BaseController
   before_action :set_admin_brand, only: %i[ show edit update destroy ]
 
   # GET /admin/brands
@@ -24,7 +24,8 @@ class Admin::BrandsController < ApplicationController
     @admin_brand = Admin::Brand.new(admin_brand_params)
 
     if @admin_brand.save
-      redirect_to @admin_brand, notice: "Brand was successfully created."
+      flash[:success] = "Brand was successfully created."
+      redirect_to @admin_brand
     else
       render :new, status: :unprocessable_entity
     end
@@ -33,7 +34,8 @@ class Admin::BrandsController < ApplicationController
   # PATCH/PUT /admin/brands/1
   def update
     if @admin_brand.update(admin_brand_params)
-      redirect_to @admin_brand, notice: "Brand was successfully updated.", status: :see_other
+      flash[:success] = "Brand was successfully updated."
+      redirect_to @admin_brand, status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
@@ -42,7 +44,8 @@ class Admin::BrandsController < ApplicationController
   # DELETE /admin/brands/1
   def destroy
     @admin_brand.destroy
-    redirect_to admin_brands_url, notice: "Brand was successfully destroyed.", status: :see_other
+    flash[:success] = "Brand was successfully destroyed."
+    redirect_to admin_brands_url, status: :see_other
   end
 
   private

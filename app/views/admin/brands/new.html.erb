@@ -1,9 +1,21 @@
-<h1>New brand</h1>
+<section class="content" data-controller="admin--brand">
+  <div class="container-fluid">
+    <%= render "admin/shared/notice" %>
 
-<%= render "form", admin_brand: @admin_brand %>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="float-right">
+          <%= link_to admin_brands_path, class: 'btn btn-info' do %>
+            <i class="fas fa-list"></i>
+          <% end %>
+        </div>
+      </div>
 
-<br>
-
-<div>
-  <%= link_to "Back to brands", admin_brands_path %>
-</div>
+      <div class="col-md-12">
+        <div class="card card-primary">
+          <%= render "form", admin_brand: @admin_brand %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -4,4 +4,7 @@ pin "application", preload: true
 pin "@hotwired/turbo-rails", to: "turbo.min.js", preload: true
 pin "@hotwired/stimulus", to: "stimulus.min.js", preload: true
 pin "@hotwired/stimulus-loading", to: "stimulus-loading.js", preload: true
+pin "jquery", to: "https://ga.jspm.io/npm:jquery@3.7.1/dist/jquery.js"
+pin 'adminlte', to: '/lte3/dist/js/adminlte.min.js'
+pin 'template_demo', to: '/lte3/dist/js/demo.js'
 pin_all_from "app/javascript/controllers", under: "controllers"
