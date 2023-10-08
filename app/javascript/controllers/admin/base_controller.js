@@ -8,6 +8,7 @@ export default class extends Controller {
   set_sidebar_status() {
     var currentURL = window.location.href
     var currentPart = currentURL.split('/')[4]
+    if (!currentPart) { return }
     $(".nav-sidebar .nav-link").each(function () {
       var itemMenuPart = $(this).attr("href").split('/')[4]
       if (currentPart.indexOf(itemMenuPart) === 0) {

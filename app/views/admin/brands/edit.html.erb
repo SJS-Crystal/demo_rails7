@@ -6,7 +6,7 @@
           <%= link_to admin_brands_path, class: 'btn btn-info' do %>
             <i class="fas fa-list"></i>
           <% end %>
-          <%= link_to @admin_brand, class: 'btn btn-primary' do %>
+          <%= link_to [:admin, @brand], class: 'btn btn-primary' do %>
             <i class="far fa-eye"></i>
           <% end %>
         </div>
@@ -14,7 +14,7 @@
 
       <div class="col-md-12">
         <div class="card card-primary">
-          <%= render "form", admin_brand: @admin_brand %>
+          <%= render "form", brand: @brand %>
         </div>
       </div>
     </div>

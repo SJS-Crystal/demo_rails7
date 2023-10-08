@@ -3,7 +3,7 @@ class Admin::BrandsController < Admin::BaseController
 
   # GET /admin/brands
   def index
-    @admin_brands = Admin::Brand.all
+    @brands = Brand.all
   end
 
   # GET /admin/brands/1
@@ -12,7 +12,7 @@ class Admin::BrandsController < Admin::BaseController
 
   # GET /admin/brands/new
   def new
-    @admin_brand = Admin::Brand.new
+    @brand = Brand.new
   end
 
   # GET /admin/brands/1/edit
@@ -21,11 +21,10 @@ class Admin::BrandsController < Admin::BaseController
 
   # POST /admin/brands
   def create
-    @admin_brand = Admin::Brand.new(admin_brand_params)
+    @brand = Brand.new(admin_brand_params)
 
-    if @admin_brand.save
-      flash[:success] = "Brand was successfully created."
-      redirect_to @admin_brand
+    if @brand.save
+      redirect_to admin_brands_url, notice: "Brand was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -33,9 +32,8 @@ class Admin::BrandsController < Admin::BaseController
 
   # PATCH/PUT /admin/brands/1
   def update
-    if @admin_brand.update(admin_brand_params)
-      flash[:success] = "Brand was successfully updated."
-      redirect_to @admin_brand, status: :see_other
+    if @brand.update(admin_brand_params)
+      redirect_to [:admin, @brand], notice: "Brand was successfully updated.", status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
@@ -43,19 +41,18 @@ class Admin::BrandsController < Admin::BaseController
 
   # DELETE /admin/brands/1
   def destroy
-    @admin_brand.destroy
-    flash[:success] = "Brand was successfully destroyed."
-    redirect_to admin_brands_url, status: :see_other
+    @brand.destroy
+    redirect_to admin_brands_url, notice: "Brand was successfully destroyed.", status: :see_other
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_admin_brand
-      @admin_brand = Admin::Brand.find(params[:id])
+      @brand = Brand.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def admin_brand_params
-      params.require(:admin_brand).permit(:name)
+      params.require(:brand).permit(:name)
     end
 end

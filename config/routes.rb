@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  devise_for :admins, controllers: {
+    registrations: 'admin/registrations',
+    sessions: 'admin/sessions',
+    passwords: 'admin/passwords',
+    confirmations: 'admin/confirmations',
+  }
   root to: 'admin/brands#index'
 
   # namespace :api do

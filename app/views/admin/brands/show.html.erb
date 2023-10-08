@@ -1,6 +1,6 @@
 <section class="content" data-controller="admin--brand">
   <div class="container-fluid">
-    <%= render "admin/shared/notice" %>
+    <%= render "shared/notice" %>
 
     <div class="row">
       <div class="col-md-12">
@@ -8,10 +8,10 @@
           <%= link_to admin_brands_path, class: 'btn btn-info' do %>
             <i class="fas fa-list"></i>
           <% end %>
-          <%= link_to edit_admin_brand_path(@admin_brand), class: 'btn btn-primary' do %>
+          <%= link_to edit_admin_brand_path(@brand), class: 'btn btn-primary' do %>
             <i class="far fa-edit"></i>
           <% end %>
-          <%= link_to @admin_brand, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'btn btn-danger' do %>
+          <%= link_to [:admin, @brand], data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'btn btn-danger' do %>
             <i class="fas fa-trash"></i>
           <% end %>
         </div>
@@ -22,7 +22,7 @@
           <div class="card-body">
             <strong>Name</strong>
             <p class="text-muted">
-              <%= @admin_brand.name %>
+              <%= @brand.name %>
             </p>
             <hr>
           </div>

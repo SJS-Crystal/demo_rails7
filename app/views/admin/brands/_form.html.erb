@@ -1,5 +1,5 @@
-<%= form_with(model: admin_brand) do |form| %>
-  <%= render  "admin/shared/validation_error", object: admin_brand %>
+<%= form_with(model: [:admin, brand]) do |form| %>
+  <%= render  "shared/validation_error", object: brand %>
 
   <div class="card-body">
     <div class="form-group">
