@@ -1,6 +1,6 @@
 class Brand < ApplicationRecord
   has_many :custom_fields, as: :custom_fieldable, dependent: :destroy
-  accepts_nested_attributes_for :custom_fields, reject_if: :all_blank, allow_destroy: true, limit: 5
+  accepts_nested_attributes_for :custom_fields, reject_if: :all_blank, allow_destroy: true, limit: Settings.max_brand_custom_field
 
   belongs_to :admin
 

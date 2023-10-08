@@ -18,7 +18,7 @@ module Admin::BrandsHelper
     html = ''
     Settings.max_brand_custom_field.times do |i|
       html << content_tag(:td) do
-        "Custome field #{i + 1}"
+        "Custom field #{i + 1}"
       end
     end
 
