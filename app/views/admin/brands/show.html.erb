@@ -24,6 +24,12 @@
             <p class="text-muted">
               <%= @brand.name %>
             </p>
+            <% @brand.custom_fields.each do |cf| %>
+              <strong><%= cf.name %></strong>
+              <p class="text-muted">
+                <%= cf.value %>
+              </p>
+            <% end %>
             <hr>
           </div>
         </div>

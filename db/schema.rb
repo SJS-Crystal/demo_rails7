@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_07_201439) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_08_123302) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -39,6 +39,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_07_201439) do
     t.bigint "admin_id", null: false
     t.integer "status", default: 0
     t.index ["admin_id"], name: "index_brands_on_admin_id"
+  end
+
+  create_table "custom_fields", force: :cascade do |t|
+    t.string "name"
+    t.string "value"
+    t.string "custom_fieldable_type", null: false
+    t.bigint "custom_fieldable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["custom_fieldable_type", "custom_fieldable_id"], name: "index_custom_fields_on_custom_fieldable"
   end
 
   add_foreign_key "brands", "admins"

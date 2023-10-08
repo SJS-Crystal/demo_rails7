@@ -18,8 +18,8 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Custome fields</th>
+                  <th>Brand name</th>
+                  <%= custom_fields_th %>
                   <th style="width: 125px"></th>
                 </tr>
               </thead>
@@ -27,7 +27,7 @@
                 <% @brands.each do |brand| %>
                   <tr>
                     <td><%= link_to brand.name, [:admin, brand] %></td>
-                    <td></td>
+                    <%= custom_fields_td(brand) %>
                     <td>
                       <%= link_to edit_admin_brand_url(brand), class: 'btn btn-primary' do %>
                         <i class="far fa-edit"></i>
@@ -42,15 +42,13 @@
             </table>
           </div>
 
-          <div class="card-footer clearfix">
-            <ul class="pagination pagination-sm m-0 float-right">
-              <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-            </ul>
-          </div>
+          <% if @pagy.pages > 1 %>
+            <div class="card-footer clearfix">
+              <ul class="pagination pagination-sm m-0">
+                <%== pagy_bootstrap_nav(@pagy) %>
+              </ul>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>

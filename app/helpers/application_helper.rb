@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include Pagy::Frontend
+
   def notice_classes
     notice_classes = Hash.new(:success)
     notice_classes[:error] = :danger

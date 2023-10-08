@@ -1,58 +1,62 @@
 class Admin::BrandsController < Admin::BaseController
-  before_action :set_admin_brand, only: %i[ show edit update destroy ]
+  before_action :set_brand, only: %i[ show edit update destroy ]
 
-  # GET /admin/brands
   def index
-    @brands = Brand.all
+    @brands = Brand.all.includes(:custom_fields)
+    @pagy, @brands = pagy(@brands)
   end
 
-  # GET /admin/brands/1
   def show
   end
 
-  # GET /admin/brands/new
   def new
     @brand = Brand.new
+    Settings.max_brand_custom_field.times { @brand.custom_fields.build }
   end
 
-  # GET /admin/brands/1/edit
   def edit
+    build_empty_custom_fields
   end
 
-  # POST /admin/brands
   def create
-    @brand = Brand.new(admin_brand_params)
+    @brand = current_admin.brands.new(brand_params)
 
     if @brand.save
       redirect_to admin_brands_url, notice: "Brand was successfully created."
     else
+      build_empty_custom_fields
       render :new, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /admin/brands/1
   def update
-    if @brand.update(admin_brand_params)
+    if @brand.update(brand_params)
       redirect_to [:admin, @brand], notice: "Brand was successfully updated.", status: :see_other
     else
+      build_empty_custom_fields
       render :edit, status: :unprocessable_entity
     end
   end
 
-  # DELETE /admin/brands/1
   def destroy
     @brand.destroy
     redirect_to admin_brands_url, notice: "Brand was successfully destroyed.", status: :see_other
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_admin_brand
-      @brand = Brand.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def admin_brand_params
-      params.require(:brand).permit(:name)
-    end
+  def build_empty_custom_fields
+    remaining_fields_to_build = Settings.max_brand_custom_field - @brand.custom_fields.size
+    remaining_fields_to_build.times { @brand.custom_fields.build }
+  end
+
+  def set_brand
+    @brand = current_admin.brands.find(params[:id])
+  end
+
+  def brand_params
+    params.require(:brand).permit(:name, :status, :admin_id,
+      custom_fields_attributes: [:id, :name, :value, :_destroy]
+    )
+  end
 end
