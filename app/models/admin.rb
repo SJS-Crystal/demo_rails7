@@ -4,7 +4,8 @@ class Admin < ApplicationRecord
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :validatable
 
-  has_many :brands
+  has_many :brands, dependent: :destroy
+  has_many :products, dependent: :destroy
 
   validates :name, presence: true
   validates :name, length: { maximum: 10 }

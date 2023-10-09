@@ -1,17 +1,17 @@
-<section class="content" data-controller="admin--brand">
+<section class="content" data-controller="admin--product">
   <div class="container-fluid">
     <%= render "shared/notice" %>
 
     <div class="row">
       <div class="col-md-12">
         <div class="float-right">
-          <%= link_to admin_brands_path, class: 'btn btn-info' do %>
+          <%= link_to admin_products_path, class: 'btn btn-info' do %>
             <i class="fas fa-list"></i>
           <% end %>
-          <%= link_to edit_admin_brand_path(@brand), class: 'btn btn-primary' do %>
+          <%= link_to edit_admin_product_path(@product), class: 'btn btn-primary' do %>
             <i class="far fa-edit"></i>
           <% end %>
-          <%= link_to [:admin, @brand], data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'btn btn-danger' do %>
+          <%= link_to [:admin, @product], data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'btn btn-danger' do %>
             <i class="fas fa-trash"></i>
           <% end %>
         </div>
@@ -22,13 +22,13 @@
           <div class="card-body">
             <strong>Name</strong>
             <p class="text-muted">
-              <%= @brand.name %>
+              <%= @product.name %>
             </p>
             <strong>Status</strong>
             <p class="text-muted">
-              <%= @brand.status %>
+              <%= @product.status %>
             </p>
-            <% @brand.custom_fields.each do |cf| %>
+            <% @product.custom_fields.each do |cf| %>
               <strong><%= cf.name %></strong>
               <p class="text-muted">
                 <%= cf.value %>

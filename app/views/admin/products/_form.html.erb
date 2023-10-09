@@ -1,0 +1,66 @@
+<%= form_with(model: [:admin, product]) do |form| %>
+  <%= render  "shared/validation_error", object: product %>
+
+  <div class="card-body">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <%= form.label :name, 'Product name' %>
+          <%= form.text_field :name, class: "form-control" %>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <%= form.label :brand_id, 'Brand' %>
+          <%= form.select :brand_id, options_for_select(brand_collection, form.object.brand_id), {}, { class: "form-control" } %>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <%= form.label :status %>
+          <%= form.select :status, options_for_select(enum_collection(Product, 'status'), form.object.status), {}, { class: "form-control" } %>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <%= form.label :price %>
+          <%= form.number_field :price, class: "form-control" %>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <%= form.label :currency_id, 'Currency' %>
+          <%= form.select :currency_id, options_for_select(currency_collection, form.object.currency_id), {}, { class: "form-control" } %>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <%= form.label :stock %>
+          <%= form.number_field :stock, class: "form-control" %>
+        </div>
+      </div>
+    </div>
+
+    <h3>Custom fields</h3>
+
+    <%= form.fields_for :custom_fields do |cf| %>
+      <div class="form-group">
+        <div class="row", data-controller="admin--product" >
+          <%= cf.hidden_field :_destroy, data: { "admin--product-target": "destroy" } %>
+          <div class="col-6">
+            <%= cf.label :name, 'Field name' %>
+            <%= cf.text_field :name, class: "form-control", data: { action: "input->admin--product#setInputDestroyStatus", "admin--product-target": "name" } %>
+          </div>
+          <div class="col-6">
+            <%= cf.label :value,'Field value' %>
+            <%= cf.text_field :value, class: "form-control", data: { action: "input->admin--product#setInputDestroyStatus", "admin--product-target": "value" } %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="card-footer">
+    <%= form.submit 'Save', class: "btn btn-primary" %>
+  </div>
+<% end %>

@@ -4,6 +4,7 @@ RSpec.describe Brand, type: :model do
   it { should belong_to(:admin) }
 
   it { should have_many(:custom_fields).dependent(:destroy) }
+  it { should have_many(:products).dependent(:destroy) }
 
   it { should define_enum_for(:status).with_values(inactive: 0, active: 1) }
 

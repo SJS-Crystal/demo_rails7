@@ -18,3 +18,12 @@ unless Admin.find_by(email: 'admin@example.com')
 else
   puts 'Admin already exists.'
 end
+
+
+currencies = ['USD', 'EUR', 'JPY', 'GBP', 'AUD']
+
+currencies.each do |currency|
+  Currency.create(name: currency)
+end
+
+puts 'Currency created!'

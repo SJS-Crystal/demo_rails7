@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_08_123302) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_08_224957) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -41,6 +41,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_08_123302) do
     t.index ["admin_id"], name: "index_brands_on_admin_id"
   end
 
+  create_table "currencies", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "custom_fields", force: :cascade do |t|
     t.string "name"
     t.string "value"
@@ -51,5 +57,23 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_08_123302) do
     t.index ["custom_fieldable_type", "custom_fieldable_id"], name: "index_custom_fields_on_custom_fieldable"
   end
 
+  create_table "products", force: :cascade do |t|
+    t.string "name"
+    t.bigint "brand_id", null: false
+    t.integer "status"
+    t.float "price"
+    t.bigint "currency_id", null: false
+    t.bigint "admin_id", null: false
+    t.integer "stock"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["admin_id"], name: "index_products_on_admin_id"
+    t.index ["brand_id"], name: "index_products_on_brand_id"
+    t.index ["currency_id"], name: "index_products_on_currency_id"
+  end
+
   add_foreign_key "brands", "admins"
+  add_foreign_key "products", "admins"
+  add_foreign_key "products", "brands"
+  add_foreign_key "products", "currencies"
 end

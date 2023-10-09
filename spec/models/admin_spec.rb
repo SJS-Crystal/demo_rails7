@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe Admin, type: :model do
   let(:admin) { create(:admin, name: 'Test Admin') }
 
-  it { should have_many(:brands) }
+  it { should have_many(:brands).dependent(:destroy) }
+  it { should have_many(:products).dependent(:destroy) }
 
   it { should validate_presence_of(:name) }
 

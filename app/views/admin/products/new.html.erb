@@ -1,0 +1,21 @@
+<section class="content" data-controller="admin--product">
+  <div class="container-fluid">
+    <%= render "shared/notice" %>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="float-right">
+          <%= link_to admin_products_path, class: 'btn btn-info' do %>
+            <i class="fas fa-list"></i>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="card card-primary">
+          <%= render "form", product: @product %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

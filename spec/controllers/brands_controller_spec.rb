@@ -7,7 +7,7 @@ RSpec.describe Admin::BrandsController, type: :controller do
   let(:invalid_attributes) { { name: nil, status: nil } }
 
   before do
-    sign_in admin # Đăng nhập với tài khoản admin trước mỗi test
+    sign_in admin
   end
 
   describe 'GET #index' do

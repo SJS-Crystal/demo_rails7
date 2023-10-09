@@ -2,9 +2,19 @@
   <%= render  "shared/validation_error", object: brand %>
 
   <div class="card-body">
-    <div class="form-group">
-      <%= form.label :name, 'Brand name' %>
-      <%= form.text_field :name, class: "form-control" %>
+    <div class="row">
+      <div class="col-sm-6">
+      <div class="form-group">
+        <%= form.label :name, 'Brand name' %>
+        <%= form.text_field :name, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="form-group">
+        <%= form.label :status %>
+        <%= form.select :status, options_for_select(enum_collection(Brand, 'status'), form.object.status), {}, { class: "form-control" } %>
+      </div>
     </div>
 
     <h3>Custom fields</h3>
@@ -15,11 +25,11 @@
           <%= cf.hidden_field :_destroy, data: { "admin--brand-target": "destroy" } %>
           <div class="col-6">
             <%= cf.label :name, 'Field name' %>
-            <%= cf.text_field :name, class: "form-control", data: { action: "input->admin--brand#setDestroy", "admin--brand-target": "name" } %>
+            <%= cf.text_field :name, class: "form-control", data: { action: "input->admin--brand#setInputDestroyStatus", "admin--brand-target": "name" } %>
           </div>
           <div class="col-6">
             <%= cf.label :value,'Field value' %>
-            <%= cf.text_field :value, class: "form-control", data: { action: "input->admin--brand#setDestroy", "admin--brand-target": "value" } %>
+            <%= cf.text_field :value, class: "form-control", data: { action: "input->admin--brand#setInputDestroyStatus", "admin--brand-target": "value" } %>
           </div>
         </div>
       </div>
