@@ -1,0 +1,55 @@
+<section class="content" data-controller="admin--client">
+  <div class="container-fluid">
+    <%= render "shared/notice" %>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="float-right">
+          <%= link_to admin_clients_path, class: 'btn btn-info' do %>
+            <i class="fas fa-list"></i>
+          <% end %>
+          <%= link_to edit_admin_client_path(@client), class: 'btn btn-primary' do %>
+            <i class="far fa-edit"></i>
+          <% end %>
+          <%= link_to [:admin, @client], data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'btn btn-danger' do %>
+            <i class="fas fa-trash"></i>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="card card-primary">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Username</label>
+                  <input type="text" class="form-control" disabled="" value="<%= @client.username%>">
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Name</label>
+                  <input type="text" class="form-control" disabled="" value="<%= @client.name%>">
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Payout Rate</label>
+                  <input type="text" class="form-control" disabled="" value="<%= @client.payout_rate%>">
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Balance</label>
+                  <input type="text" class="form-control" disabled="" value="<%= @client.balance%>">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

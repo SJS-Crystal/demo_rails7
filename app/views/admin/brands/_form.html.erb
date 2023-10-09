@@ -4,16 +4,17 @@
   <div class="card-body">
     <div class="row">
       <div class="col-sm-6">
-      <div class="form-group">
-        <%= form.label :name, 'Brand name' %>
-        <%= form.text_field :name, class: "form-control" %>
+        <div class="form-group">
+          <%= form.label :name, 'Brand name' %>
+          <%= form.text_field :name, class: "form-control" %>
+        </div>
       </div>
-    </div>
 
-    <div class="col-sm-6">
-      <div class="form-group">
-        <%= form.label :status %>
-        <%= form.select :status, options_for_select(enum_collection(Brand, 'status'), form.object.status), {}, { class: "form-control" } %>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <%= form.label :status %>
+          <%= form.select :status, options_for_select(enum_collection(Brand, 'status'), form.object.status), {}, { class: "form-control" } %>
+        </div>
       </div>
     </div>
 

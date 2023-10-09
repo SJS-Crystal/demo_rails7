@@ -20,24 +20,34 @@
       <div class="col-md-12">
         <div class="card card-primary">
           <div class="card-body">
-            <strong>Name</strong>
-            <p class="text-muted">
-              <%= @product.name %>
-            </p>
-            <strong>Status</strong>
-            <p class="text-muted">
-              <%= @product.status %>
-            </p>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Name</label>
+                  <input type="text" class="form-control" disabled="" value="<%= @product.name %>">
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Status</label>
+                  <input type="text" class="form-control" disabled="" value="<%= @product.status %>">
+                </div>
+              </div>
+
             <% @product.custom_fields.each do |cf| %>
-              <strong><%= cf.name %></strong>
-              <p class="text-muted">
-                <%= cf.value %>
-              </p>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label><%= cf.name %></label>
+                  <input type="text" class="form-control" disabled="" value="<%= cf.value %>">
+                </div>
+              </div>
             <% end %>
-            <hr>
+            </div>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </section>

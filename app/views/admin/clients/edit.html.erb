@@ -1,0 +1,22 @@
+<section class="content" data-controller="admin--client">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="float-right">
+          <%= link_to admin_clients_path, class: 'btn btn-info' do %>
+            <i class="fas fa-list"></i>
+          <% end %>
+          <%= link_to [:admin, @client], class: 'btn btn-primary' do %>
+            <i class="far fa-eye"></i>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="card card-primary">
+          <%= render "form", client: @client %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
