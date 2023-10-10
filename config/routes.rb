@@ -12,12 +12,21 @@ Rails.application.routes.draw do
     namespace :client do
       namespace :v1 do
         get '/' => 'document#index'
+
         resources :accounts, only: [] do
           collection do
             get :profile
             post :login
             delete :logout
             put :update
+          end
+        end
+
+        resources :products, only: [:index] do
+          collection do
+            get :all
+            put :add_to_view
+            put :remove_from_view
           end
         end
       end

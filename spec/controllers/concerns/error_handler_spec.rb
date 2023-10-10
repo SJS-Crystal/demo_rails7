@@ -28,6 +28,10 @@ class FakesController < ApplicationController
   def action_that_raises_expired_signature
     raise JWT::ExpiredSignature
   end
+
+  def action_that_raises_variable_error
+    raise Pagy::VariableError.new("dummy message", 1, 2, 3)
+  end
 end
 
 RSpec.describe FakesController, type: :controller do
@@ -104,6 +108,14 @@ RSpec.describe FakesController, type: :controller do
         get :action_that_raises_expired_signature
       end
       it_behaves_like 'an error response', 'Token expired!', 401
+    end
+
+    context 'when VariableError is raised' do
+      before do
+        routes.draw { get 'action_that_raises_variable_error' => 'fakes#action_that_raises_variable_error' }
+        get :action_that_raises_variable_error
+      end
+      it_behaves_like 'an error response', 'expected :1 2; got 3', 401
     end
   end
 end

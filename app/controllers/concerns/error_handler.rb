@@ -1,5 +1,7 @@
 module ErrorHandler
   def self.included(klass)
+    return if Rails.env.development?
+
     klass.class_eval do
       rescue_from StandardError do
         render_response(message: 'Internal Error!', success: false, status: 500)
@@ -23,6 +25,10 @@ module ErrorHandler
 
       rescue_from JWT::ExpiredSignature do
         render_response(message: 'Token expired!', success: false, status: 401)
+      end
+
+      rescue_from Pagy::VariableError do |ex|
+        render_response(message: ex.message, success: false, status: 401)
       end
     end
   end

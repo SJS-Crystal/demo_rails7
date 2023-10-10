@@ -35,10 +35,11 @@ class Api::Client::V1::BaseController < ApplicationController
     request.headers['Device-Id']
   end
 
-  def render_response(object: nil, message: nil, success: true, status: 200, serializer_options: nil)
+  def render_response(object: nil, message: nil, success: true, status: 200, serializer_options: nil, pagy: nil)
     resp_data = {success: success, message: message, data: nil}
     serializer_options ||= dynamic_serializer_options(object) if object
     resp_data[:data] = ActiveModelSerializers::SerializableResource.new(object, serializer_options) if object
+    resp_data[:pagy] = pagy if pagy
     render json: resp_data, status: status
   end
 
@@ -51,5 +52,15 @@ class Api::Client::V1::BaseController < ApplicationController
     else
       {serializer: nil}
     end
+  end
+
+  def pagy_metadata(pagy)
+    {
+      current_page: pagy.page,
+      next_page: pagy.next,
+      prev_page: pagy.prev,
+      total_pages: pagy.pages,
+      total_count: pagy.count
+    }
   end
 end

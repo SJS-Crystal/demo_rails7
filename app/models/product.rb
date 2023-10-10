@@ -1,5 +1,7 @@
 class Product < ApplicationRecord
   has_many :custom_fields, as: :custom_fieldable, dependent: :destroy
+  has_many :accessible_products, dependent: :destroy
+
   belongs_to :brand
   belongs_to :currency, optional: true
   belongs_to :admin
