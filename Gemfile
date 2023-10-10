@@ -74,3 +74,7 @@ end
 gem "config", "~> 4.2"
 
 gem "pagy", "~> 6.1"
+
+gem 'active_model_serializers', '~> 0.10.9'
+
+gem 'jwt', '~> 2.7'

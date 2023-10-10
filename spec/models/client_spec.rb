@@ -3,6 +3,9 @@ require 'rails_helper'
 RSpec.describe Client, type: :model do
   let(:admin) { FactoryBot.create(:admin) }
 
+  it { should belong_to(:admin) }
+  it { should have_many(:devices).dependent(:destroy) }
+
   it 'is valid with valid attributes' do
     client = FactoryBot.build(:client, admin: admin)
     expect(client).to be_valid
@@ -24,7 +27,7 @@ RSpec.describe Client, type: :model do
     expect(client).to_not be_valid
   end
 
-  it 'is valid with a password between 6 and 10 characters' do
+  it 'is valid with a password between 6 and 20 characters' do
     client = FactoryBot.build(:client, password: '123456', admin: admin)
     expect(client).to be_valid
   end
@@ -34,8 +37,8 @@ RSpec.describe Client, type: :model do
     expect(client).to_not be_valid
   end
 
-  it 'is invalid with a password more than 10 characters' do
-    client = FactoryBot.build(:client, password: '12345678901', admin: admin)
+  it 'is invalid with a password more than 20 characters' do
+    client = FactoryBot.build(:client, password: '1234567890112309128390213', admin: admin)
     expect(client).to_not be_valid
   end
 
