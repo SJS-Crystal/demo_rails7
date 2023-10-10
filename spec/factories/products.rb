@@ -6,6 +6,6 @@ FactoryBot.define do
     association :currency, factory: :currency
     association :brand, factory: :brand
     association :admin, factory: :admin
-    stock { 1 }
+    stock { 10 }
   end
 end

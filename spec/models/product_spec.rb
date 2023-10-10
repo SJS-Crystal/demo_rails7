@@ -5,7 +5,7 @@ RSpec.describe Product, type: :model do
     it { should have_many(:custom_fields).dependent(:destroy) }
     it { should have_many(:custom_fields).dependent(:destroy) }
     it { should have_many(:accessible_products).dependent(:destroy) }
-
+    it { should have_many(:cards)}
     it { should belong_to(:brand) }
     it { should belong_to(:currency).optional(true) }
     it { should belong_to(:admin) }
@@ -14,6 +14,8 @@ RSpec.describe Product, type: :model do
   describe 'nested attributes' do
     it { should accept_nested_attributes_for(:custom_fields).allow_destroy(true).limit(Settings.max_product_custom_field) }
   end
+
+  it { should delegate_method(:name).to(:currency).with_prefix }
 
   describe 'enums' do
     it { should define_enum_for(:status).with_values(active: 1, inactive: 0) }

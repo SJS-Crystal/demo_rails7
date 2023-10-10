@@ -4,6 +4,7 @@ RSpec.describe Client, type: :model do
   let(:admin) { FactoryBot.create(:admin) }
 
   it { should belong_to(:admin) }
+  it { should have_many(:cards) }
   it { should have_many(:devices).dependent(:destroy) }
   it { should have_many(:accessible_products).dependent(:destroy) }
   it { should have_many(:viewable_products).through(:accessible_products).source(:product) }

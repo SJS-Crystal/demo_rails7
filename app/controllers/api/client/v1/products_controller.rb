@@ -19,7 +19,7 @@ class Api::Client::V1::ProductsController < Api::Client::V1::BaseController
     render_response(message: 'success')
   end
 
-  $client_desc << 'api/client/v1/products | PUT | Authorization(header), Device-Id(header), product_id | Add product to view'
+  $client_desc << 'api/client/v1/products | PUT | Authorization(header), Device-Id(header), product_id | Remove product from view'
   def remove_from_view
     current_client.viewable_products.delete(product)
     render_response(message: 'success')
@@ -28,6 +28,6 @@ class Api::Client::V1::ProductsController < Api::Client::V1::BaseController
   private
 
   def product
-    @product ||= Product.find(params[:product_id])
+    @product ||= current_client.admin.products.active.find(params[:product_id])
   end
 end

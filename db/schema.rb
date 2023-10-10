@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_10_130932) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_10_151339) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -49,6 +49,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_10_130932) do
     t.bigint "admin_id", null: false
     t.integer "status", default: 0
     t.index ["admin_id"], name: "index_brands_on_admin_id"
+  end
+
+  create_table "cards", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "client_id", null: false
+    t.string "activation_code", null: false
+    t.integer "status", default: 0
+    t.string "purchase_pin", null: false
+    t.float "price", null: false
+    t.string "currency", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["activation_code"], name: "index_cards_on_activation_code", unique: true
+    t.index ["client_id"], name: "index_cards_on_client_id"
+    t.index ["product_id"], name: "index_cards_on_product_id"
+    t.index ["purchase_pin"], name: "index_cards_on_purchase_pin", unique: true
   end
 
   create_table "clients", force: :cascade do |t|
@@ -108,6 +124,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_10_130932) do
   add_foreign_key "accessible_products", "clients"
   add_foreign_key "accessible_products", "products"
   add_foreign_key "brands", "admins"
+  add_foreign_key "cards", "clients"
+  add_foreign_key "cards", "products"
   add_foreign_key "clients", "admins"
   add_foreign_key "devices", "clients"
   add_foreign_key "products", "admins"

@@ -29,6 +29,15 @@ Rails.application.routes.draw do
             put :remove_from_view
           end
         end
+
+        resources :cards, only: [:create, :index, :show] do
+          member do
+            put :cancel
+          end
+          collection do
+            put :activate
+          end
+        end
       end
     end
   end

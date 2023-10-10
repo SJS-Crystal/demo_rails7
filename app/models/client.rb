@@ -1,9 +1,9 @@
 class Client < ApplicationRecord
   has_secure_password
   has_many :devices, dependent: :destroy
-
   has_many :accessible_products, dependent: :destroy
   has_many :viewable_products, through: :accessible_products, source: :product
+  has_many :cards
 
   belongs_to :admin
 
