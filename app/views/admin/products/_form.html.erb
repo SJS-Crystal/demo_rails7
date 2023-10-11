@@ -29,8 +29,8 @@
       </div>
       <div class="col-sm-6">
         <div class="form-group">
-          <%= form.label :currency_id, 'Currency' %>
-          <%= form.select :currency_id, options_for_select(currency_collection, form.object.currency_id), {}, { class: "form-control" } %>
+          <%= label_tag :currency_id, 'Currency' %>
+          <%= select_tag :currency_id, options_for_select(currency_collection, currency_collection.find { |item| item[0] == product.currency }&.last), { class: "form-control" } %>
         </div>
       </div>
       <div class="col-sm-6">

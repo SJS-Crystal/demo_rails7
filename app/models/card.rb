@@ -1,12 +1,14 @@
 class Card < ApplicationRecord
   belongs_to :client
   belongs_to :product
+  belongs_to :admin, optional: true
 
   enum status: { pending_approval: 0, issued: 1, active: 2, canceled: 3, rejected: 4 }
 
   validates :activation_code, presence: true, uniqueness: true
   validates :purchase_pin, presence: true, uniqueness: true
   validates :price, :currency, presence: true
+  validates :currency, presence: true
 
   before_validation :generate_unique_codes, on: :create
   validate :check_product_stock, on: :create

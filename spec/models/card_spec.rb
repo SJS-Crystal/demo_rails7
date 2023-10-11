@@ -11,6 +11,7 @@ RSpec.describe Card, type: :model do
 
   it { should define_enum_for(:status).with_values(pending_approval: 0, issued: 1, active: 2, canceled: 3, rejected: 4) }
 
+  it { should validate_presence_of(:currency) }
   it { should validate_presence_of(:activation_code) }
   it { should validate_uniqueness_of(:activation_code) }
   it { should validate_presence_of(:purchase_pin) }

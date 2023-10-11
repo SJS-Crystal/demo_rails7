@@ -28,10 +28,10 @@
                 <% @products.each do |product| %>
                   <tr>
                     <td><%= link_to product.name, [:admin, product] %></td>
-                    <td><%= product.status.capitalize %></td>
+                    <td><%= badge_status(product) %></td>
                     <%= custom_fields_td(product, Settings.max_product_custom_field) %>
                     <td>
-                      <%= link_to edit_admin_product_url(product), class: 'btn btn-primary' do %>
+                      <%= link_to edit_admin_product_url(product), class: 'btn btn-warning' do %>
                         <i class="far fa-edit"></i>
                       <% end %>
                       <%= link_to [:admin, product], data: { turbo_method: :delete, turbo_confirm: 'Are you sure?'}, class: 'btn btn-danger' do %>

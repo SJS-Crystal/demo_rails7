@@ -7,6 +7,7 @@ class Admin < ApplicationRecord
   has_many :brands, dependent: :destroy
   has_many :products, dependent: :destroy
   has_many :clients, dependent: :destroy
+  has_many :cards
 
   validates :name, presence: true
   validates :name, length: { maximum: 10 }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_10_151339) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_11_081055) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -61,7 +61,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_10_151339) do
     t.string "currency", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "admin_id"
     t.index ["activation_code"], name: "index_cards_on_activation_code", unique: true
+    t.index ["admin_id"], name: "index_cards_on_admin_id"
     t.index ["client_id"], name: "index_cards_on_client_id"
     t.index ["product_id"], name: "index_cards_on_product_id"
     t.index ["purchase_pin"], name: "index_cards_on_purchase_pin", unique: true
@@ -111,24 +113,23 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_10_151339) do
     t.bigint "brand_id", null: false
     t.integer "status"
     t.float "price"
-    t.bigint "currency_id", null: false
     t.bigint "admin_id", null: false
     t.integer "stock"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "currency"
     t.index ["admin_id"], name: "index_products_on_admin_id"
     t.index ["brand_id"], name: "index_products_on_brand_id"
-    t.index ["currency_id"], name: "index_products_on_currency_id"
   end
 
   add_foreign_key "accessible_products", "clients"
   add_foreign_key "accessible_products", "products"
   add_foreign_key "brands", "admins"
+  add_foreign_key "cards", "admins"
   add_foreign_key "cards", "clients"
   add_foreign_key "cards", "products"
   add_foreign_key "clients", "admins"
   add_foreign_key "devices", "clients"
   add_foreign_key "products", "admins"
   add_foreign_key "products", "brands"
-  add_foreign_key "products", "currencies"
 end

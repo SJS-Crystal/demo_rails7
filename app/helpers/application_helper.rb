@@ -35,7 +35,11 @@ module ApplicationHelper
   end
 
   def enum_collection(klass, column)
-    klass.send(column.pluralize).keys.map { |key, _| [key.capitalize, key] }
+    klass.send(column.pluralize).keys.map { |key, _| [key.humanize.titleize, key] }
+  end
+
+  def order_status_collection
+    ['issued', 'rejected'].map { |key| [key.humanize.titleize, key] }
   end
 
   def brand_collection
@@ -44,5 +48,17 @@ module ApplicationHelper
 
   def currency_collection
     Currency.pluck(:name, :id)
+  end
+
+  def badge_status(obj)
+    status_map = {
+      active: :success,
+      inactive: :secondary,
+    }
+
+    badge_tag =  content_tag(:div, class: "badge badge-#{status_map[obj.status.to_sym]} badge-lg") do
+      obj.status.humanize.titleize
+    end
+    raw(badge_tag)
   end
 end

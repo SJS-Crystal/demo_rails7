@@ -2,7 +2,7 @@ class Admin::ProductsController < Admin::BaseController
   before_action :set_product, only: %i[ show edit update destroy ]
 
   def index
-    @products = Product.all.includes(:custom_fields)
+    @products = Product.all.order(id: :desc).includes(:custom_fields)
     @pagy, @products = pagy(@products)
   end
 
@@ -19,8 +19,7 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def create
-    @product = current_admin.products.new(product_params)
-
+    @product = current_admin.products.new(product_params.merge currency: currency&.name)
     if @product.save
       redirect_to admin_products_url, notice: "Product was successfully created."
     else
@@ -30,7 +29,7 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def update
-    if @product.update(product_params)
+    if @product.update(product_params.merge currency: currency&.name)
       redirect_to [:admin, @product], notice: "Product was successfully updated.", status: :see_other
     else
       build_empty_custom_fields
@@ -55,8 +54,12 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def product_params
-    params.require(:product).permit(:name, :brand_id, :status, :price, :currency_id, :admin_id, :stock,
+    params.require(:product).permit(:name, :brand_id, :status, :price, :admin_id, :stock,
       custom_fields_attributes: [:id, :name, :value, :_destroy]
     )
+  end
+
+  def currency
+    currency = Currency.find_by(id: params[:currency_id])
   end
 end

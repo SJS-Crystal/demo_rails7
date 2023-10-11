@@ -5,4 +5,8 @@ class CardSerializer < ApplicationSerializer
   def price
     "#{object.price} #{object.currency}"
   end
+
+  def status
+    object.status.humanize.titleize
+  end
 end

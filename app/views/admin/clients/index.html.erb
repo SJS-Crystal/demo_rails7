@@ -33,7 +33,7 @@
                     <td><%= client.payout_rate %></td>
                     <td><%= client.balance %></td>
                     <td>
-                      <%= link_to edit_admin_client_url(client), class: 'btn btn-primary' do %>
+                      <%= link_to edit_admin_client_url(client), class: 'btn btn-warning' do %>
                         <i class="far fa-edit"></i>
                       <% end %>
                       <%= link_to [:admin, client], data: { turbo_method: :delete, turbo_confirm: 'Are you sure?'}, class: 'btn btn-danger' do %>

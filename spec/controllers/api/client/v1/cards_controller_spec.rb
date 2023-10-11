@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::Client::V1::CardsController, type: :controller do
+  let(:currency) { create(:currency) }
   let!(:admin) { create(:admin) }
   let!(:client) { create(:client, admin: admin) }
   let!(:product) { create(:product, admin: admin) }
@@ -22,7 +23,7 @@ RSpec.describe Api::Client::V1::CardsController, type: :controller do
       end
 
       it 'returns a success response with the new card' do
-        post :create, params: { product_id: product.id }
+        post :create, params: { product_id: product.id, currency_id: currency.id }
         expect(response).to have_http_status(:ok)
         expect(response.body).to include("Card requested successfully")
       end

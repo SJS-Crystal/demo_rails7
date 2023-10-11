@@ -8,7 +8,7 @@
           <%= link_to admin_products_path, class: 'btn btn-info' do %>
             <i class="fas fa-list"></i>
           <% end %>
-          <%= link_to edit_admin_product_path(@product), class: 'btn btn-primary' do %>
+          <%= link_to edit_admin_product_path(@product), class: 'btn btn-warning' do %>
             <i class="far fa-edit"></i>
           <% end %>
           <%= link_to [:admin, @product], data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'btn btn-danger' do %>
@@ -32,6 +32,34 @@
                 <div class="form-group">
                   <label>Status</label>
                   <input type="text" class="form-control" disabled="" value="<%= @product.status %>">
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Brand</label>
+                  <input type="text" class="form-control" disabled="" value="<%= @product.brand_name %>">
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Stock</label>
+                  <input type="text" class="form-control" disabled="" value="<%= @product.stock %>">
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Currency</label>
+                  <input type="text" class="form-control" disabled="" value="<%= @product.currency %>">
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Price</label>
+                  <input type="text" class="form-control" disabled="" value="<%= @product.price %>">
                 </div>
               </div>
 

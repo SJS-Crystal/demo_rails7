@@ -3,9 +3,9 @@ FactoryBot.define do
     name { "MyString" }
     status { 1 }
     price { 1.5 }
-    association :currency, factory: :currency
     association :brand, factory: :brand
     association :admin, factory: :admin
     stock { 10 }
+    currency { Faker::Currency.code }
   end
 end

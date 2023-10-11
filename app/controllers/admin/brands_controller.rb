@@ -2,7 +2,7 @@ class Admin::BrandsController < Admin::BaseController
   before_action :set_brand, only: %i[ show edit update destroy ]
 
   def index
-    @brands = Brand.all.includes(:custom_fields)
+    @brands = Brand.all.order(id: :desc).includes(:custom_fields)
     @pagy, @brands = pagy(@brands)
   end
 

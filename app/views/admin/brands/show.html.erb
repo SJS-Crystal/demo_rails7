@@ -8,7 +8,7 @@
           <%= link_to admin_brands_path, class: 'btn btn-info' do %>
             <i class="fas fa-list"></i>
           <% end %>
-          <%= link_to edit_admin_brand_path(@brand), class: 'btn btn-primary' do %>
+          <%= link_to edit_admin_brand_path(@brand), class: 'btn btn-warning' do %>
             <i class="far fa-edit"></i>
           <% end %>
           <%= link_to [:admin, @brand], data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'btn btn-danger' do %>

@@ -11,6 +11,15 @@
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item">
+          <%= link_to admin_clients_url, class: "nav-link" do %>
+            <i class="fas fa-circle nav-icon"></i>
+            <p>Clients</p>
+          <% end %>
+        </li>
+      </ul>
+
+      <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
+        <li class="nav-item">
           <%= link_to admin_brands_url, class: "nav-link" do %>
             <i class="fas fa-circle nav-icon"></i>
             <p>Brands</p>
@@ -29,9 +38,9 @@
 
       <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item">
-          <%= link_to admin_clients_url, class: "nav-link" do %>
+          <%= link_to admin_orders_url, class: "nav-link" do %>
             <i class="fas fa-circle nav-icon"></i>
-            <p>Clients</p>
+            <p>Orders</p>
           <% end %>
         </li>
       </ul>

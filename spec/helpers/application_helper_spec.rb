@@ -65,4 +65,21 @@ RSpec.describe ApplicationHelper, type: :helper do
       expect(collection).to eq([['USD', currency1.id], ['EUR', currency2.id]])
     end
   end
+
+  describe '#order_status_collection' do
+    it 'returns an array of humanized statuses and original values' do
+      expected_result = [['Issued', 'issued'], ['Rejected', 'rejected']]
+      expect(helper.order_status_collection).to eq(expected_result)
+    end
+  end
+
+  describe '#badge_status' do
+    it 'returns a badge with the correct class and content' do
+      obj = instance_double("Brand", status: 'active')
+
+      expect(helper.badge_status(obj)).to eq(
+        '<div class="badge badge-success badge-lg">Active</div>'
+      )
+    end
+  end
 end

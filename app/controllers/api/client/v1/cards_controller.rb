@@ -3,12 +3,13 @@ class Api::Client::V1::CardsController < Api::Client::V1::BaseController
 
   $client_desc << 'api/client/v1/cards | POST | Authorization(header), Device-Id(header), product_id | Request new card'
   def create
-    product = current_client.admin.products.active.find(params[:product_id])
-    card = Card.create!(
+    admin = current_client.admin
+    product = admin.products.active.find(params[:product_id])
+    card = admin.cards.create!(
       product: product,
       client: current_client,
       price: product.price,
-      currency: product.currency_name
+      currency: product.currency
     )
 
     render_response(object: card, message: 'Card requested successfully')

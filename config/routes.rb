@@ -46,5 +46,6 @@ Rails.application.routes.draw do
     resources :clients
     resources :products
     resources :brands
+    resources :orders
   end
 end

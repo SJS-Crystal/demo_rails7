@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe Admin::ProductsController, type: :controller do
   let(:admin) { create(:admin) }
   let(:currency) { create(:currency) }
-  let(:product) { create(:product, admin: admin) }
+  let(:product) { create(:product, admin: admin, currency: currency.name) }
   let(:brand) { create(:brand, admin: admin) }
-  let(:valid_attributes) { { name: 'New Product 1', status: 'active', admin_id: admin.id, price: '2', currency_id: currency.id, brand_id: brand.id, stock: 33 } }
+  let(:valid_attributes) { { name: 'New Product 1', status: 'active', admin_id: admin.id, price: '2', brand_id: brand.id, stock: 33 } }
   let(:invalid_attributes) { { name: nil, status: nil } }
 
   before do
@@ -44,18 +44,18 @@ RSpec.describe Admin::ProductsController, type: :controller do
     context 'with valid params' do
       it 'creates a new Product' do
         expect {
-          post :create, params: { product: valid_attributes }
+          post :create, params: { product: valid_attributes, currency_id: currency.id }
         }.to change(Product, :count).by(1)
       end
 
       it 'assigns a newly created product as @product' do
-        post :create, params: { product: valid_attributes }
+        post :create, params: { product: valid_attributes, currency_id: currency.id }
         expect(assigns(:product)).to be_a(Product)
         expect(assigns(:product)).to be_persisted
       end
 
       it 'redirects to the created product' do
-        post :create, params: { product: valid_attributes }
+        post :create, params: { product: valid_attributes, currency_id: currency.id }
         expect(response).to redirect_to(admin_products_url)
       end
     end
@@ -78,18 +78,18 @@ RSpec.describe Admin::ProductsController, type: :controller do
       let(:new_attributes) { { name: 'Updated Product' } }
 
       it 'updates the requested product' do
-        put :update, params: { id: product.to_param, product: new_attributes }
+        put :update, params: { id: product.to_param, product: new_attributes, currency_id: currency.id }
         product.reload
         expect(product.name).to eq('Updated Product')
       end
 
       it 'assigns the requested product as @product' do
-        put :update, params: { id: product.to_param, product: valid_attributes }
+        put :update, params: { id: product.to_param, product: valid_attributes, currency_id: currency.id }
         expect(assigns(:product)).to eq(product)
       end
 
       it 'redirects to the product' do
-        put :update, params: { id: product.to_param, product: valid_attributes }
+        put :update, params: { id: product.to_param, product: valid_attributes, currency_id: currency.id }
         expect(response).to redirect_to([:admin, product])
       end
     end

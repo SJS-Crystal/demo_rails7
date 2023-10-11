@@ -26,7 +26,7 @@ RSpec.describe Api::Client::V1::ProductsController, type: :controller do
         'name',
         'brand_id',
         'price',
-        'currency_id',
+        'currency',
         'stock',
         'brand_name'
       )

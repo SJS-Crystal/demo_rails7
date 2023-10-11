@@ -1,0 +1,17 @@
+<%= form_with(model: order, url: url, method: :patch) do |form| %>
+  <%= render  "shared/validation_error", object: order %>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-2">
+        <div class="input-group input-group-sm">
+          <%= form.select :status, options_for_select(order_status_collection, form.object.status), {include_blank: 'change status'}, { class: "form-control" } %>
+          <span class="input-group-append">
+            <%= form.submit 'Save status', class: "btn btn-info btn-flat" %>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%= render "order_detail", order: order %>
+<% end %>
