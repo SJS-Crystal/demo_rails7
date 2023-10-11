@@ -2,14 +2,14 @@ class Admin::ClientsController < Admin::BaseController
   before_action :set_client, only: %i[ show edit update destroy ]
 
   def index
-    @pagy, @clients = pagy(Client.all)
+    @pagy, @clients = pagy(current_admin.clients)
   end
 
   def show
   end
 
   def new
-    @client = Client.new
+    @client = current_admin.clients.build
   end
 
   def edit

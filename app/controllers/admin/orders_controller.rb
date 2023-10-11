@@ -3,7 +3,7 @@ class Admin::OrdersController < Admin::BaseController
   before_action :can_edit_order?, only: %i[ edit update ]
 
   def index
-    @pagy, @orders = pagy(Card.all.order(id: :desc).includes(:client, :product))
+    @pagy, @orders = pagy(current_admin.cards.all.order(id: :desc).includes(:client, :product))
   end
 
   def show

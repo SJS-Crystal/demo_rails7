@@ -2,7 +2,7 @@ class Admin::BrandsController < Admin::BaseController
   before_action :set_brand, only: %i[ show edit update destroy ]
 
   def index
-    @brands = Brand.all.order(id: :desc).includes(:custom_fields)
+    @brands = current_admin.brands.order(id: :desc).includes(:custom_fields)
     @pagy, @brands = pagy(@brands)
   end
 
@@ -10,7 +10,7 @@ class Admin::BrandsController < Admin::BaseController
   end
 
   def new
-    @brand = Brand.new
+    @brand = current_admin.brands.build
     Settings.max_brand_custom_field.times { @brand.custom_fields.build }
   end
 

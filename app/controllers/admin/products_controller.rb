@@ -2,7 +2,7 @@ class Admin::ProductsController < Admin::BaseController
   before_action :set_product, only: %i[ show edit update destroy ]
 
   def index
-    @products = Product.all.order(id: :desc).includes(:custom_fields)
+    @products = current_admin.products.order(id: :desc).includes(:custom_fields)
     @pagy, @products = pagy(@products)
   end
 
@@ -10,7 +10,7 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def new
-    @product = Product.new
+    @product = current_admin.products.build
     Settings.max_product_custom_field.times { @product.custom_fields.build }
   end
 

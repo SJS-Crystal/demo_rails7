@@ -36,14 +36,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_11_081055) do
     t.string "unconfirmed_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "name", limit: 10, null: false
+    t.string "name", null: false
     t.index ["confirmation_token"], name: "index_admins_on_confirmation_token", unique: true
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
   create_table "brands", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "admin_id", null: false
@@ -83,14 +83,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_11_081055) do
   end
 
   create_table "currencies", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "custom_fields", force: :cascade do |t|
-    t.string "name"
-    t.string "value"
+    t.string "name", null: false
+    t.string "value", null: false
     t.string "custom_fieldable_type", null: false
     t.bigint "custom_fieldable_id", null: false
     t.datetime "created_at", null: false
@@ -109,12 +109,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_11_081055) do
   end
 
   create_table "products", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.bigint "brand_id", null: false
-    t.integer "status"
-    t.float "price"
+    t.integer "status", default: 0
+    t.float "price", null: false
     t.bigint "admin_id", null: false
-    t.integer "stock"
+    t.integer "stock", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "currency"
