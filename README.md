@@ -13,14 +13,22 @@ rails db:create
 ```
 
 ## Database initialization
-- Init data:
-```sh
-rake db:seed
-```
-OR
 - Init data with sample:
 ```sh
 rake db:generate_sample_data
+```
+OR
+- Init only necessary data:
+```sh
+rake db:seed
+```
+
+## How to run application
+```sh
+bundle
+```
+```sh
+bundle exec rails s
 ```
 
 ## How to run the test suite

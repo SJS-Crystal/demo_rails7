@@ -1,4 +1,4 @@
-<section class="content" data-controller="admin--report" data-turbo=false >
+<section class="content" data-controller="admin--report" >
   <div class="container-fluid">
     <%= render "shared/notice" %>
 
@@ -43,7 +43,7 @@
     <div class="card">
       <div class="col-md-12">
         <div class="card">
-          <% if @query_results.present? %>
+          <% if @data_matrix.present? %>
             <div class="card-body p-0" style="overflow: scroll">
               <table class="table" style="table-layout: fixed;">
                 <thead>
