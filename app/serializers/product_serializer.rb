@@ -1,5 +1,5 @@
 class ProductSerializer < ApplicationSerializer
-  attributes :id, :name, :brand_id, :price, :currency, :stock, :brand_name, :status
+  attributes :id, :name, :brand_id, :price, :usd_price, :currency, :stock, :brand_name, :status
 
   has_many :custom_fields
 

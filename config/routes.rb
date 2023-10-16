@@ -47,5 +47,11 @@ Rails.application.routes.draw do
     resources :products
     resources :brands
     resources :orders
+
+    get 'reports/cards_by_client_product', to: 'reports#cards_by_client_product'
+    get 'reports/cards_by_time', to: 'reports#cards_by_time'
+    get 'reports/spending_by_client_product', to: 'reports#spending_by_client_product'
+    get 'reports/spending_by_time', to: 'reports#spending_by_time'
+
   end
 end

@@ -4,7 +4,6 @@
     <img src="/img/AdminLTELogo.png" alt="logo" class="brand-image img-circle elevation-3" style="opacity: .8">
     <span class="brand-text font-weight-light">Admin</span>
   </a>
-
   <!-- Sidebar -->
   <div class="sidebar">
     <!-- Sidebar Menu -->
@@ -12,36 +11,62 @@
       <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item">
           <%= link_to admin_clients_url, class: "nav-link" do %>
-            <i class="fas fa-circle nav-icon"></i>
+            <i class="far fa-circle nav-icon"></i>
             <p>Clients</p>
           <% end %>
         </li>
-      </ul>
-
-      <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item">
           <%= link_to admin_brands_url, class: "nav-link" do %>
-            <i class="fas fa-circle nav-icon"></i>
+            <i class="far fa-circle nav-icon"></i>
             <p>Brands</p>
           <% end %>
         </li>
-      </ul>
-
-      <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item">
           <%= link_to admin_products_url, class: "nav-link" do %>
-            <i class="fas fa-circle nav-icon"></i>
+            <i class="far fa-circle nav-icon"></i>
             <p>Products</p>
           <% end %>
         </li>
-      </ul>
-
-      <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item">
           <%= link_to admin_orders_url, class: "nav-link" do %>
-            <i class="fas fa-circle nav-icon"></i>
+            <i class="far fa-circle nav-icon"></i>
             <p>Orders</p>
           <% end %>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-chart-pie"></i>
+            <p>
+              Reports
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <%= link_to admin_reports_cards_by_client_product_url, class: "nav-link",  data: { turbo: false } do %>
+                <i class="far fa-circle nav-icon"></i>
+                <p>Orders by product</p>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to admin_reports_spending_by_client_product_url, class: "nav-link",  data: { turbo: false } do %>
+                <i class="far fa-circle nav-icon"></i>
+                <p>Spending by product</p>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to admin_reports_cards_by_time_url, class: "nav-link",  data: { turbo: false } do %>
+                <i class="far fa-circle nav-icon"></i>
+                <p>Orders by time</p>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to admin_reports_spending_by_time_url, class: "nav-link",  data: { turbo: false } do %>
+                <i class="far fa-circle nav-icon"></i>
+                <p>Spending by time</p>
+              <% end %>
+            </li>
+          </ul>
         </li>
       </ul>
     </nav>

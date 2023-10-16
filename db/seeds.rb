@@ -6,24 +6,17 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-unless Admin.find_by(email: 'admin@example.com')
-  Admin.create!(
-    email: 'admin@example.com',
-    name: 'Admin',
-    password: '123123',
-    password_confirmation: '123123',
-    confirmed_at: Time.zone.now
-  )
-  puts 'Admin created!'
-else
-  puts 'Admin already exists.'
-end
-
+Admin.create!(
+  email: 'admin@example.com',
+  name: 'Admin',
+  password: '123123',
+  password_confirmation: '123123',
+  confirmed_at: Time.zone.now
+)
+puts 'Admin created!'
 
 currencies = ['USD', 'EUR', 'JPY', 'GBP', 'AUD']
-
 currencies.each do |currency|
   Currency.create(name: currency)
 end
-
 puts 'Currency created!'

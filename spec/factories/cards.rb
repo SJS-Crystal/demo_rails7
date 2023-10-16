@@ -6,6 +6,7 @@ FactoryBot.define do
     activation_code { SecureRandom.hex(10) }
     purchase_pin { SecureRandom.hex(10) }
     price { Faker::Commerce.price }
+    usd_price { Faker::Commerce.price }
     currency { Faker::Currency.code }
 
     trait :pending_approval do
@@ -26,6 +27,7 @@ FactoryBot.define do
 
     after(:build) do |card|
       card.price ||= card.product.price
+      card.usd_price ||= card.product.usd_price
       card.currency ||= card.product_currency
     end
   end

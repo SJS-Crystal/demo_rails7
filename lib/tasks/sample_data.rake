@@ -55,6 +55,7 @@ namespace :db do
           admin_id: brand.admin_id,
           status: [0,1].sample,
           price: Faker::Commerce.price,
+          usd_price: Faker::Commerce.price,
           stock: rand(100..1000),
           currency: Currency.order('RANDOM()').first.name
         )
@@ -109,8 +110,10 @@ namespace :db do
             status: [0,1,2,3,4].sample,
             purchase_pin: Faker::Number.unique.hexadecimal(digits: 10),
             price: product.price,
+            usd_price: product.usd_price,
             currency: product.currency,
-            admin_id: product.admin_id
+            admin_id: product.admin_id,
+            created_at: Faker::Date.between(from: 1.year.ago, to: Time.zone.now)
           )
         end
       end

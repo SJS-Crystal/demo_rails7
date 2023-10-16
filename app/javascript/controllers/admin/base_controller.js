@@ -6,14 +6,13 @@ export default class extends Controller {
   }
 
   set_sidebar_status() {
-    var currentURL = window.location.href
-    var currentPart = currentURL.split('/')[4]
-    if (!currentPart) { return }
+    var currentURL = window.location.href;
     $(".nav-sidebar .nav-link").each(function () {
-      var itemMenuPart = $(this).attr("href").split('/')[4]
-      if (currentPart.indexOf(itemMenuPart) === 0) {
-        $(this).addClass("active")
+      var itemMenuURL = $(this).attr("href");
+      if (currentURL === itemMenuURL || (currentURL.indexOf(itemMenuURL) === 0 && currentURL.indexOf('?') > 0)) {
+        $(this).addClass("active");
+        $(this).parents().closest('li.nav-item').addClass("menu-is-opening menu-open");
       }
-    })
+    });
   }
 }

@@ -15,5 +15,6 @@ class Product < ApplicationRecord
   validates :currency, presence: true
   validates :name, presence: true
   validates :price, presence: true
+  validates :usd_price, presence: true
   validates :stock, presence: true
 end

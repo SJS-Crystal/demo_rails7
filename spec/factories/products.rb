@@ -3,6 +3,7 @@ FactoryBot.define do
     name { "MyString" }
     status { 1 }
     price { 1.5 }
+    usd_price { 2 }
     association :brand, factory: :brand
     association :admin, factory: :admin
     stock { 10 }

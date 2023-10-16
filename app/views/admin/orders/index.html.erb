@@ -14,6 +14,7 @@
                   <th>Client</th>
                   <th>Status</th>
                   <th>Price</th>
+                  <th>USD Price</th>
                   <th>Created at</th>
                 </tr>
               </thead>
@@ -25,6 +26,7 @@
                     <td><%= link_to order.client.name, [:admin, order.client] %></td>
                     <td><%= order_status(order) %></td>
                     <td><%= "#{order.price} #{order.currency}" %></td>
+                    <td><%= order.usd_price %></td>
                     <td><%= order.created_at.to_date %></td>
                     <td>
                       <%= link_to edit_admin_order_url(order), class: 'btn btn-warning' do %>

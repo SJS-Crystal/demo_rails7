@@ -14,6 +14,7 @@ RSpec.describe CardSerializer, type: :serializer do
       "status" => "pending_approval".humanize.titleize,
       "purchase_pin" => card.purchase_pin,
       "price" => "#{card.price} #{card.currency}",
+      "usd_price" => card.usd_price.to_f,
       "created_at" => card.created_at.as_json,
       "updated_at" => card.updated_at.as_json
     }

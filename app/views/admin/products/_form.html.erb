@@ -29,6 +29,12 @@
       </div>
       <div class="col-sm-6">
         <div class="form-group">
+          <%= form.label :usd_price, 'USD Price' %>
+          <%= form.number_field :usd_price, class: "form-control" %>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
           <%= label_tag :currency_id, 'Currency' %>
           <%= select_tag :currency_id, options_for_select(currency_collection, currency_collection.find { |item| item[0] == product.currency }&.last), { class: "form-control" } %>
         </div>

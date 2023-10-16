@@ -16,6 +16,7 @@
             Name: <%= order.product.name %><br>
             Brand name: <%= order.product.brand.name %><br>
             Price: <%= "#{order.product.price} #{order.product.currency}" %><br>
+            USD Price: <%= order.usd_price %><br>
             Stock: <%= order.product.stock %>
           </address>
         </div>
@@ -30,7 +31,8 @@
           <b>Order ID:</b> <%= order.id %><br>
           <b>Created at:</b> <%= order.created_at.to_date %><br>
           <b>Status</b> <%= order_status(order) %><br>
-          <b>Price:</b> <%= "#{order.price} #{order.currency}" %>
+          <b>Price:</b> <%= "#{order.price} #{order.currency}" %><br>
+          <b>USD Price:</b> <%= order.usd_price %>
         </div>
       </div>
     </div>

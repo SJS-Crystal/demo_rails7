@@ -63,6 +63,13 @@
                 </div>
               </div>
 
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>USD Price</label>
+                  <input type="text" class="form-control" disabled="" value="<%= @product.usd_price %>">
+                </div>
+              </div>
+
             <% @product.custom_fields.each do |cf| %>
               <div class="col-sm-6">
                 <div class="form-group">

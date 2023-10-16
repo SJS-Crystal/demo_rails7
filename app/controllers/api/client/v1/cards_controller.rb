@@ -9,6 +9,7 @@ class Api::Client::V1::CardsController < Api::Client::V1::BaseController
       product: product,
       client: current_client,
       price: product.price,
+      usd_price: product.usd_price,
       currency: product.currency
     )
 

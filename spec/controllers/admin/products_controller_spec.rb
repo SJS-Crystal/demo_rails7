@@ -5,7 +5,7 @@ RSpec.describe Admin::ProductsController, type: :controller do
   let(:currency) { create(:currency) }
   let(:product) { create(:product, admin: admin, currency: currency.name) }
   let(:brand) { create(:brand, admin: admin) }
-  let(:valid_attributes) { { name: 'New Product 1', status: 'active', admin_id: admin.id, price: '2', brand_id: brand.id, stock: 33 } }
+  let(:valid_attributes) { { name: 'New Product 1', status: 'active', admin_id: admin.id, price: '2', usd_price:9, brand_id: brand.id, stock: 33 } }
   let(:invalid_attributes) { { name: nil, status: nil } }
 
   before do

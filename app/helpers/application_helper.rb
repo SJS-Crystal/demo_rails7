@@ -61,4 +61,8 @@ module ApplicationHelper
     end
     raw(badge_tag)
   end
+
+  def normalize_date_range(start_date, end_date)
+    "#{start_date.strftime("%m/%d/%Y")} - #{end_date.strftime("%m/%d/%Y")}"
+  end
 end

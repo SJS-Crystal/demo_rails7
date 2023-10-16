@@ -17,6 +17,7 @@ RSpec.describe Card, type: :model do
   it { should validate_presence_of(:purchase_pin) }
   it { should validate_uniqueness_of(:purchase_pin) }
   it { should validate_presence_of(:price) }
+  it { should validate_presence_of(:usd_price) }
   it { should validate_presence_of(:currency) }
 
   it 'validates uniqueness of activation_code' do

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_11_081055) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_16_004923) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -57,11 +57,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_11_081055) do
     t.string "activation_code", null: false
     t.integer "status", default: 0
     t.string "purchase_pin", null: false
-    t.float "price", null: false
+    t.decimal "price", precision: 10, scale: 2, null: false
     t.string "currency", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "admin_id"
+    t.decimal "usd_price", precision: 10, scale: 2, null: false
     t.index ["activation_code"], name: "index_cards_on_activation_code", unique: true
     t.index ["admin_id"], name: "index_cards_on_admin_id"
     t.index ["client_id"], name: "index_cards_on_client_id"
@@ -112,12 +113,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_11_081055) do
     t.string "name", null: false
     t.bigint "brand_id", null: false
     t.integer "status", default: 0
-    t.float "price", null: false
+    t.decimal "price", precision: 10, scale: 2, null: false
     t.bigint "admin_id", null: false
     t.integer "stock", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "currency"
+    t.decimal "usd_price", precision: 10, scale: 2, null: false
     t.index ["admin_id"], name: "index_products_on_admin_id"
     t.index ["brand_id"], name: "index_products_on_brand_id"
   end

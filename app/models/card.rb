@@ -8,6 +8,7 @@ class Card < ApplicationRecord
   validates :activation_code, presence: true, uniqueness: true
   validates :purchase_pin, presence: true, uniqueness: true
   validates :price, :currency, presence: true
+  validates :usd_price, :currency, presence: true
   validates :currency, presence: true
 
   before_validation :generate_unique_codes, on: :create
