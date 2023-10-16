@@ -23,13 +23,9 @@ OR
 rake db:seed
 ```
 
-## How to run application
-```sh
-bundle
-```
-```sh
-bundle exec rails s
-```
+## Application starting
+1. `bundle`
+2. `bundle exec rails s`
 
 ## How to run the test suite
 - Rspec:
