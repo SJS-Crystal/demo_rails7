@@ -8,9 +8,8 @@ module OrderHelper
       rejected: :danger
     }
 
-    badge_tag =  content_tag(:div, class: "badge badge-#{status_map[order.status.to_sym]} badge-lg") do
+    content_tag(:div, class: "badge badge-#{status_map[order.status.to_sym]} badge-lg") do
       order.status.humanize.titleize
     end
-    raw(badge_tag)
   end
 end

@@ -19,8 +19,8 @@ class CardByClientService
       total_card_per_product[product_id] += card_count
       total_card_per_product[:total_product] += client_card_count
 
-      rows[client_id] ||= { client_name: client_name, client_card_count: client_card_count, products: {} }
-      rows[client_id][:products][product_id] = { product_name: product_name, card_count: card_count }
+      rows[client_id] ||= {client_name: client_name, client_card_count: client_card_count, products: {}}
+      rows[client_id][:products][product_id] = {product_name: product_name, card_count: card_count}
 
       all_products[product_id] = product_name
     end
@@ -32,10 +32,10 @@ class CardByClientService
   private
 
   def client_total(card_conditions)
-    Card.select("client_id, COUNT(*) AS client_card_count")
-        .where(card_conditions)
-        .group(:client_id)
-        .to_sql
+    Card.select('client_id, COUNT(*) AS client_card_count')
+      .where(card_conditions)
+      .group(:client_id)
+      .to_sql
   end
 
   def query(current_admin, card_conditions, client_ids_for_page)
@@ -45,11 +45,11 @@ class CardByClientService
                                   products.name AS product_name,
                                   COUNT(cards.id) AS card_count,
                                   client_totals.client_card_count")
-                  .joins("CROSS JOIN products")
-                  .joins("LEFT JOIN cards ON products.id = cards.product_id AND clients.id = cards.client_id")
-                  .joins("LEFT JOIN (#{@client_total}) AS client_totals ON clients.id = client_totals.client_id")
-                  .where(clients: {id: client_ids_for_page}, cards: card_conditions)
-                  .group("clients.id, products.id, clients.name, products.name, client_totals.client_card_count")
-                  .order("client_totals.client_card_count DESC")
+      .joins('CROSS JOIN products')
+      .joins('LEFT JOIN cards ON products.id = cards.product_id AND clients.id = cards.client_id')
+      .joins("LEFT JOIN (#{@client_total}) AS client_totals ON clients.id = client_totals.client_id")
+      .where(clients: {id: client_ids_for_page}, cards: card_conditions)
+      .group('clients.id, products.id, clients.name, products.name, client_totals.client_card_count')
+      .order('client_totals.client_card_count DESC')
   end
 end

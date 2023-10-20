@@ -1,5 +1,5 @@
 class Admin::BrandsController < Admin::BaseController
-  before_action :set_brand, only: %i[ show edit update destroy ]
+  before_action :set_brand, only: %i[show edit update destroy]
 
   def index
     @brands = current_admin.brands.order(id: :desc).includes(:custom_fields)
@@ -22,7 +22,7 @@ class Admin::BrandsController < Admin::BaseController
     @brand = current_admin.brands.new(brand_params)
 
     if @brand.save
-      redirect_to admin_brands_url, notice: "Brand was successfully created."
+      redirect_to admin_brands_url, notice: 'Brand was successfully created.'
     else
       build_empty_custom_fields
       render :new, status: :unprocessable_entity
@@ -31,7 +31,7 @@ class Admin::BrandsController < Admin::BaseController
 
   def update
     if @brand.update(brand_params)
-      redirect_to [:admin, @brand], notice: "Brand was successfully updated.", status: :see_other
+      redirect_to [:admin, @brand], notice: 'Brand was successfully updated.', status: :see_other
     else
       build_empty_custom_fields
       render :edit, status: :unprocessable_entity
@@ -40,7 +40,7 @@ class Admin::BrandsController < Admin::BaseController
 
   def destroy
     @brand.destroy
-    redirect_to admin_brands_url, notice: "Brand was successfully destroyed.", status: :see_other
+    redirect_to admin_brands_url, notice: 'Brand was successfully destroyed.', status: :see_other
   end
 
   private
@@ -56,7 +56,6 @@ class Admin::BrandsController < Admin::BaseController
 
   def brand_params
     params.require(:brand).permit(:name, :status, :admin_id,
-      custom_fields_attributes: [:id, :name, :value, :_destroy]
-    )
+      custom_fields_attributes: [:id, :name, :value, :_destroy])
   end
 end

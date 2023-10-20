@@ -10,7 +10,7 @@ class Product < ApplicationRecord
 
   accepts_nested_attributes_for :custom_fields, reject_if: :all_blank, allow_destroy: true, limit: Settings.max_product_custom_field
 
-  enum status: { inactive: 0, active: 1 }
+  enum status: {inactive: 0, active: 1}
 
   validates :currency, presence: true
   validates :name, presence: true

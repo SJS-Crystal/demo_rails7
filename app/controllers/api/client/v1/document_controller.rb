@@ -1,4 +1,4 @@
-class Api::Client::V1::DocumentController < ActionController::Base
+class Api::Client::V1::DocumentController < ActionController::Base # rubocop:todo Rails/ApplicationController
   def index
     Api::Client::V1::AccountsController.new
     Api::Client::V1::ProductsController.new
