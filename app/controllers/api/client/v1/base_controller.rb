@@ -13,7 +13,7 @@ class Api::Client::V1::BaseController < ApplicationController
     device = Device.find_by(device_id: device_id)
     return render_response(message: 'Device_id is invalid!', success: false, status: 401) if device.nil?
 
-    auth_status, auth_data = JwtService.new(bearer_token, device_id, device.secret).authenticate!
+    _auth_status, auth_data = JwtService.new(bearer_token, device_id, device.secret).authenticate!
     @current_client ||= Client.find(auth_data['object_id'])
   end
 

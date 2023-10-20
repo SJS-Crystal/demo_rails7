@@ -1,5 +1,5 @@
 namespace :db do
-  desc "Fill database with sample data"
+  desc 'Fill database with sample data'
   task generate_sample_data: :environment do
     require 'faker'
 
@@ -21,7 +21,7 @@ namespace :db do
       )
     end
     Admin.import! admins, validate: false
-    puts "Admins created!"
+    puts 'Admins created!'
 
     # Currencies
     currencies = []
@@ -29,7 +29,7 @@ namespace :db do
       currencies << Currency.new(name: Faker::Currency.unique.code)
     end
     Currency.import! currencies, validate: false
-    puts "Currencies created!"
+    puts 'Currencies created!'
 
     # Brands
     brands = []
@@ -38,12 +38,12 @@ namespace :db do
         brands << Brand.new(
           name: Faker::Company.name.first(10),
           admin_id: admin.id,
-          status: [0,1].sample
+          status: [0, 1].sample
         )
       end
     end
     Brand.import! brands, validate: false
-    puts "Brands created!"
+    puts 'Brands created!'
 
     # Products
     products = []
@@ -53,7 +53,7 @@ namespace :db do
           name: Faker::Commerce.product_name.first(10),
           brand_id: brand.id,
           admin_id: brand.admin_id,
-          status: [0,1].sample,
+          status: [0, 1].sample,
           price: Faker::Commerce.price,
           usd_price: Faker::Commerce.price,
           stock: rand(100..1000),
@@ -62,7 +62,7 @@ namespace :db do
       end
     end
     Product.import! products, validate: false
-    puts "Products created!"
+    puts 'Products created!'
 
     # Clients
     clients = []
@@ -79,7 +79,7 @@ namespace :db do
       end
     end
     Client.import! clients, validate: false
-    puts "Clients created!"
+    puts 'Clients created!'
 
     # Custom Fields for Products and Brands
     custom_fields = []
@@ -96,7 +96,7 @@ namespace :db do
       end
     end
     CustomField.import! custom_fields, validate: false
-    puts "Custom fields created!"
+    puts 'Custom fields created!'
 
     # Cards
     cards = []
@@ -107,7 +107,7 @@ namespace :db do
             product_id: product.id,
             client_id: client.id,
             activation_code: Faker::Number.unique.hexadecimal(digits: 10),
-            status: [0,1,2,3,4].sample,
+            status: [0, 1, 2, 3, 4].sample,
             purchase_pin: Faker::Number.unique.hexadecimal(digits: 10),
             price: product.price,
             usd_price: product.usd_price,
@@ -119,8 +119,8 @@ namespace :db do
       end
     end
     Card.import! cards, validate: false
-    puts "Cards created!"
+    puts 'Cards created!'
 
-    puts "Sample data generated successfully!"
+    puts 'Sample data generated successfully!'
   end
 end

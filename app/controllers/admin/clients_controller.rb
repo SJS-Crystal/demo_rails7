@@ -1,5 +1,5 @@
 class Admin::ClientsController < Admin::BaseController
-  before_action :set_client, only: %i[ show edit update destroy ]
+  before_action :set_client, only: %i[show edit update destroy]
 
   def index
     @pagy, @clients = pagy(current_admin.clients)
@@ -19,7 +19,7 @@ class Admin::ClientsController < Admin::BaseController
     @client = current_admin.clients.new(client_params)
 
     if @client.save
-      redirect_to admin_clients_url, notice: "Client was successfully created."
+      redirect_to admin_clients_url, notice: 'Client was successfully created.'
     else
       render :new, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class Admin::ClientsController < Admin::BaseController
 
   def update
     if @client.update(client_params)
-      redirect_to [:admin, @client], notice: "Client was successfully updated.", status: :see_other
+      redirect_to [:admin, @client], notice: 'Client was successfully updated.', status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
@@ -35,7 +35,7 @@ class Admin::ClientsController < Admin::BaseController
 
   def destroy
     @client.destroy
-    redirect_to admin_clients_url, notice: "Client was successfully destroyed.", status: :see_other
+    redirect_to admin_clients_url, notice: 'Client was successfully destroyed.', status: :see_other
   end
 
   private

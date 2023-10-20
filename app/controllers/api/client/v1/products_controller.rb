@@ -1,5 +1,5 @@
 class Api::Client::V1::ProductsController < Api::Client::V1::BaseController
-  $client_desc << 'api/client/v1/products/all | GET | Authorization(header), Device-Id(header), page, items | Get all products from client\'s admin'
+  $client_desc << "api/client/v1/products/all | GET | Authorization(header), Device-Id(header), page, items | Get all products from client's admin"
   def all
     products = current_client.admin.products.includes(:brand, :custom_fields).active
     pagy, products = pagy(products, page: params[:page], items: params[:items])

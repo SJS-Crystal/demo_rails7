@@ -16,7 +16,7 @@ class CardByTimeService
     @query.each do |result|
       date = result.date.to_s if @type_time == 'By day'
       date = "#{result.year.to_i}-#{result.month.to_i}" if @type_time == 'By month'
-      data_matrix[result.client_id] ||= { name: result.client_name, data: {} }
+      data_matrix[result.client_id] ||= {name: result.client_name, data: {}}
       data_matrix[result.client_id][:data][date] = result.card_count
 
       total_cards_per_date[date] += result.card_count
@@ -30,10 +30,10 @@ class CardByTimeService
   private
 
   def client_total
-    Card.select("client_id, COUNT(*) AS client_card_count")
-        .where(@card_conditions)
-        .group(:client_id)
-        .to_sql
+    Card.select('client_id, COUNT(*) AS client_card_count')
+      .where(@card_conditions)
+      .group(:client_id)
+      .to_sql
   end
 
   def query
@@ -46,11 +46,11 @@ class CardByTimeService
                                            clients.name AS client_name,
                                            DATE(cards.created_at) AS date,
                                            COUNT(cards.id) AS card_count")
-                           .joins("LEFT JOIN cards ON clients.id = cards.client_id")
-                           .joins("LEFT JOIN (#{@client_total}) AS client_totals ON clients.id = client_totals.client_id")
-                           .where(clients: {id: @client_ids_for_page}, cards: @card_conditions)
-                           .group("clients.id, clients.name, DATE(cards.created_at), client_totals.client_card_count")
-                           .order("client_totals.client_card_count DESC, DATE(cards.created_at)")
+      .joins('LEFT JOIN cards ON clients.id = cards.client_id')
+      .joins("LEFT JOIN (#{@client_total}) AS client_totals ON clients.id = client_totals.client_id")
+      .where(clients: {id: @client_ids_for_page}, cards: @card_conditions)
+      .group('clients.id, clients.name, DATE(cards.created_at), client_totals.client_card_count')
+      .order('client_totals.client_card_count DESC, DATE(cards.created_at)')
   end
 
   def cards_by_month
@@ -59,10 +59,10 @@ class CardByTimeService
                                            TO_CHAR(cards.created_at, 'YYYY') AS year,
                                            TO_CHAR(cards.created_at, 'MM') AS month,
                                            COUNT(cards.id) AS card_count")
-                                  .joins('LEFT JOIN cards ON clients.id = cards.client_id')
-                                  .joins("LEFT JOIN (#{@client_total}) AS client_totals ON clients.id = client_totals.client_id")
-                                  .where(clients: {id: @client_ids_for_page}, cards: @card_conditions)
-                                  .group("clients.id, clients.name, TO_CHAR(cards.created_at, 'YYYY'), TO_CHAR(cards.created_at, 'MM'), client_totals.client_card_count")
-                                  .order('client_totals.client_card_count DESC, year DESC, month DESC')
+      .joins('LEFT JOIN cards ON clients.id = cards.client_id')
+      .joins("LEFT JOIN (#{@client_total}) AS client_totals ON clients.id = client_totals.client_id")
+      .where(clients: {id: @client_ids_for_page}, cards: @card_conditions)
+      .group("clients.id, clients.name, TO_CHAR(cards.created_at, 'YYYY'), TO_CHAR(cards.created_at, 'MM'), client_totals.client_card_count")
+      .order('client_totals.client_card_count DESC, year DESC, month DESC')
   end
 end

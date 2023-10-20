@@ -1,5 +1,5 @@
 class Admin::ProductsController < Admin::BaseController
-  before_action :set_product, only: %i[ show edit update destroy ]
+  before_action :set_product, only: %i[show edit update destroy]
 
   def index
     @products = current_admin.products.order(id: :desc).includes(:custom_fields)
@@ -19,9 +19,9 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def create
-    @product = current_admin.products.new(product_params.merge currency: currency&.name)
+    @product = current_admin.products.new(product_params.merge(currency: currency&.name))
     if @product.save
-      redirect_to admin_products_url, notice: "Product was successfully created."
+      redirect_to admin_products_url, notice: 'Product was successfully created.'
     else
       build_empty_custom_fields
       render :new, status: :unprocessable_entity
@@ -29,8 +29,8 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def update
-    if @product.update(product_params.merge currency: currency&.name)
-      redirect_to [:admin, @product], notice: "Product was successfully updated.", status: :see_other
+    if @product.update(product_params.merge(currency: currency&.name))
+      redirect_to [:admin, @product], notice: 'Product was successfully updated.', status: :see_other
     else
       build_empty_custom_fields
       render :edit, status: :unprocessable_entity
@@ -39,7 +39,7 @@ class Admin::ProductsController < Admin::BaseController
 
   def destroy
     @product.destroy
-    redirect_to admin_products_url, notice: "Product was successfully destroyed.", status: :see_other
+    redirect_to admin_products_url, notice: 'Product was successfully destroyed.', status: :see_other
   end
 
   private
@@ -55,11 +55,10 @@ class Admin::ProductsController < Admin::BaseController
 
   def product_params
     params.require(:product).permit(:name, :brand_id, :status, :price, :usd_price, :admin_id, :stock,
-      custom_fields_attributes: [:id, :name, :value, :_destroy]
-    )
+      custom_fields_attributes: [:id, :name, :value, :_destroy])
   end
 
   def currency
-    currency = Currency.find_by(id: params[:currency_id])
+    Currency.find_by(id: params[:currency_id])
   end
 end

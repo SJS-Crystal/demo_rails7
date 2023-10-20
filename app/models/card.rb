@@ -3,7 +3,7 @@ class Card < ApplicationRecord
   belongs_to :product
   belongs_to :admin, optional: true
 
-  enum status: { pending_approval: 0, issued: 1, active: 2, canceled: 3, rejected: 4 }
+  enum status: {pending_approval: 0, issued: 1, active: 2, canceled: 3, rejected: 4}
 
   validates :activation_code, presence: true, uniqueness: true
   validates :purchase_pin, presence: true, uniqueness: true
@@ -20,17 +20,17 @@ class Card < ApplicationRecord
   private
 
   def check_product_stock
-    if product.stock <= 0
-      errors.add(:base, "Stock not available for the product")
-    end
+    return unless product.stock <= 0
+
+    errors.add(:base, 'Stock not available for the product')
   end
 
   def decrease_product_stock
-    product.decrement!(:stock)
+    product.decrement!(:stock) # rubocop:todo Rails/SkipsModelValidations
   end
 
   def increase_product_stock
-    product.increment!(:stock)
+    product.increment!(:stock) # rubocop:todo Rails/SkipsModelValidations
   end
 
   def canceled_or_rejected?

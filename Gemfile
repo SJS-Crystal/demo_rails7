@@ -39,7 +39,7 @@ gem "stimulus-rails"
 gem "bcrypt", "~> 3.1.7"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
+gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
@@ -52,12 +52,17 @@ gem "sassc-rails"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[ mri mingw x64_mingw ]
-  gem 'rspec-rails', '~> 6.0.3'
-  gem "factory_bot_rails", '~> 6.2.0'
-  gem "faker", '~> 3.2.1'
-  gem 'shoulda-matchers', '~> 5.0', require: false
-  gem 'rails-controller-testing', '~> 1.0'
+  gem "debug", platforms: %i[mri mingw x64_mingw]
+  gem "rspec-rails", "~> 6.0.3"
+  gem "factory_bot_rails", "~> 6.2.0"
+  gem "faker", "~> 3.2.1"
+  gem "shoulda-matchers", "~> 5.0", require: false
+  gem "rails-controller-testing", "~> 1.0"
+  gem "rubocop", "~> 1.50.2", require: false
+  gem "rubocop-rails", "~> 2.19.1", require: false
+  gem "rubocop-performance", "~> 1.16.0", require: false
+  gem "standard", "~> 1.28.1", require: false
+  gem "rubocop-rspec", require: false
 end
 
 group :development do
@@ -75,8 +80,8 @@ gem "config", "~> 4.2"
 
 gem "pagy", "~> 6.1"
 
-gem 'active_model_serializers', '~> 0.10.9'
+gem "active_model_serializers", "~> 0.10.9"
 
-gem 'jwt', '~> 2.7'
+gem "jwt", "~> 2.7"
 
 gem "activerecord-import", "~> 1.5"

@@ -1,6 +1,5 @@
-
 class Api::Client::V1::AccountsController < Api::Client::V1::BaseController
-  skip_before_action :authenticate_client!, only: %w(login)
+  skip_before_action :authenticate_client!, only: %w[login]
 
   $client_desc << 'api/client/v1/accounts | PUT | Authorization(header), Device-Id(header), name, password | update profile'
   def update
@@ -34,7 +33,7 @@ class Api::Client::V1::AccountsController < Api::Client::V1::BaseController
   $client_desc << 'api/client/v1/accounts/logout | DELETE | Authorization(header), Device-Id(header) | logout'
   def logout
     # device = current_client.devices.find_by(device_id: current_client.current_device_id)
-    device = current_client.devices.delete_all
+    current_client.devices.delete_all
     render_response(message: 'Logout successfully!')
   end
 

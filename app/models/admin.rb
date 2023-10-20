@@ -2,7 +2,7 @@ class Admin < ApplicationRecord
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :validatable
+    :recoverable, :rememberable, :validatable
 
   has_many :brands, dependent: :destroy
   has_many :products, dependent: :destroy
@@ -10,5 +10,5 @@ class Admin < ApplicationRecord
   has_many :cards
 
   validates :name, presence: true
-  validates :name, length: { maximum: 10 }
+  validates :name, length: {maximum: 10}
 end

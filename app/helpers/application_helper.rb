@@ -2,7 +2,7 @@ module ApplicationHelper
   include Pagy::Frontend
 
   def custom_fields_td(obj, column_num)
-    html = ''
+    html = []
     obj.custom_fields.each do |cf|
       html << content_tag(:td) do
         content_tag(:b, cf.name) + ": #{cf.value}"
@@ -13,18 +13,18 @@ module ApplicationHelper
       html << content_tag(:td)
     end
 
-    raw(html)
+    safe_join(html, "\n")
   end
 
   def custom_fields_th(column_num)
-    html = ''
+    html = []
     column_num.times do |i|
       html << content_tag(:th) do
         "Custom field #{i + 1}"
       end
     end
 
-    raw(html)
+    safe_join(html, "\n")
   end
 
   def notice_classes
@@ -39,7 +39,7 @@ module ApplicationHelper
   end
 
   def order_status_collection
-    ['issued', 'rejected'].map { |key| [key.humanize.titleize, key] }
+    %w[issued rejected].map { |key| [key.humanize.titleize, key] }
   end
 
   def brand_collection
@@ -53,13 +53,12 @@ module ApplicationHelper
   def badge_status(obj)
     status_map = {
       active: :success,
-      inactive: :secondary,
+      inactive: :secondary
     }
 
-    badge_tag =  content_tag(:div, class: "badge badge-#{status_map[obj.status.to_sym]} badge-lg") do
+    content_tag(:div, class: "badge badge-#{status_map[obj.status.to_sym]} badge-lg") do
       obj.status.humanize.titleize
     end
-    raw(badge_tag)
   end
 
   def normalize_date_range(start_date, end_date)
