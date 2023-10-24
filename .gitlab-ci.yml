@@ -1,0 +1,59 @@
+variables:
+  IMAGE_TAG: 1.2
+
+stages:
+  - test
+  - build
+  - deploy
+
+cache:
+  paths:
+    - vendor/ruby
+
+test:
+  stage: test
+  image: ruby:3.2.2
+  variables:
+    # DOCKER_TLS_CERTDIR: "/certs"
+    # POSTGRES_DB: test_database
+    # POSTGRES_USER: user
+    # POSTGRES_PASSWORD: password
+    # DATABASE_URL: "postgresql://user:password@postgres:5432/test_database"
+
+  services:
+    - postgres:16
+  before_script:
+    - bundle config set --local deployment true # Install dependencies into ./vendor/ruby
+    - bundle install -j $(nproc)
+    # - bundle exec rake db:create db:schema:load RAILS_ENV=test
+  script:
+    - bundle exec rubocop
+    - bundle exec rspec
+  only:
+    - merge_requests
+  rules:
+    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
+
+# build_image:
+#   stage: build
+#   variables:
+#     DOCKER_TLS_CERTDIR: "/certs"
+#   image: docker:20.10.16
+#   services:
+#     - docker:20.10.16-dind
+#   before_script:
+#     - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 027094075364.dkr.ecr.us-east-1.amazonaws.com
+#   script:
+#     - docker build -t 027094075364.dkr.ecr.us-east-1.amazonaws.com/assignment_demo_rails_7:$IMAGE_TAG .
+#     - docker push 027094075364.dkr.ecr.us-east-1.amazonaws.com/assignment_demo_rails_7:$IMAGE_TAG
+
+# deploy:
+#   stage: deploy
+#   before_script:
+#     - chmod 400 $DEV_PRIVATE_SSH_KEY
+#   script:
+#     - ssh root@$DEV_SERVER_IP -i $DEV_PRIVATE_SSH_KEY -o StrictHostKeyChecking=no "
+#       aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 027094075364.dkr.ecr.us-east-1.amazonaws.com &&
+#       docker ps -aq | xargs docker stop | xargs docker rm &&
+#       docker run -d -p 5000:5000 027094075364.dkr.ecr.us-east-1.amazonaws.com assignment_demo_rails_7:$IMAGE_TAG
+#     "

@@ -23,7 +23,10 @@ default: &default
 
 development:
   <<: *default
-  database: assignment_development
+  # database: <%= ENV["DB_NAME"] %>
+  # username: <%= ENV["DB_USER"] %>
+  # password: <%= ENV["DB_PASSWORD"] %>
+  url: <%= ENV["DATABASE_URL"] %>
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -59,6 +62,10 @@ test:
   <<: *default
   database: assignment_test
 
+staging:
+  <<: *default
+  url: <%= ENV["DATABASE_URL"] %>
+
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
 # ever seen by anyone, they now have access to your database.
@@ -81,6 +88,4 @@ test:
 #
 production:
   <<: *default
-  database: assignment_production
-  username: assignment
-  password: <%= ENV["ASSIGNMENT_DATABASE_PASSWORD"] %>
+  url: <%= ENV["DATABASE_URL"] %>

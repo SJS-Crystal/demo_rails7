@@ -7,6 +7,14 @@
 - Rails 7
 - Posgresql
 
+# Use Docker
+## How to setup and get up
+1. `docker-compose run web rails db:create`
+2. `docker-compose run web rails db:migrate`
+3. `docker-compose run web rails db:seed` or `docker-compose run web rails db:generate_sample_data`
+4. `docker-compose up`
+
+# Don't Use Docker
 ## Database creation
 ```sh
 rails db:create
