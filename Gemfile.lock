@@ -176,7 +176,11 @@ GEM
     net-smtp (0.4.0)
       net-protocol
     nio4r (2.5.9)
+    nokogiri (1.15.4-aarch64-linux)
+      racc (~> 1.4)
     nokogiri (1.15.4-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.15.4-x86_64-linux)
       racc (~> 1.4)
     orm_adapter (0.5.0)
     pagy (6.1.0)
@@ -326,7 +330,9 @@ GEM
     zeitwerk (2.6.11)
 
 PLATFORMS
+  aarch64-linux
   arm64-darwin-22
+  x86_64-linux
 
 DEPENDENCIES
   active_model_serializers (~> 0.10.9)
@@ -352,7 +358,7 @@ DEPENDENCIES
   rubocop-rspec
   sassc-rails
   shoulda-matchers (~> 5.0)
-  sprockets-rails
+  sprockets-rails (~> 3.4.2)
   standard (~> 1.28.1)
   stimulus-rails
   turbo-rails

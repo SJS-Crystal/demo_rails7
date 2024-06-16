@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:16
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+
+  web:
+    image: ${IMAGE_NAME}:${IMAGE_TAG}
+    volumes:
+      - /home/project/storage:/home/project/storage
+      - /home/project/log:/home/project/log
+      - /home/project/setup_deploy.sh:/home/project/setup_deploy.sh
+      - public_data:/home/project/public
+    expose:
+      - 3000
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+    env_file:
+      - ./.env
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - public_data:/home/project/public
+      - /home/nginx.conf:/etc/nginx/conf.d/your_domain.com.conf
+      - /etc/letsencrypt:/etc/letsencrypt
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - web
+
+volumes:
+  postgres_data:
+  public_data:
