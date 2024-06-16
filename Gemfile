@@ -9,7 +9,7 @@ gem 'devise', '~> 4.9.2'
 gem "rails", "~> 7.0.8"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
-gem "sprockets-rails"
+gem "sprockets-rails", "~> 3.4.2"
 
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
@@ -53,11 +53,13 @@ gem "sassc-rails"
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[mri mingw x64_mingw]
+
   gem "rspec-rails", "~> 6.0.3"
   gem "factory_bot_rails", "~> 6.2.0"
   gem "faker", "~> 3.2.1"
   gem "shoulda-matchers", "~> 5.0", require: false
   gem "rails-controller-testing", "~> 1.0"
+
   gem "rubocop", "~> 1.50.2", require: false
   gem "rubocop-rails", "~> 2.19.1", require: false
   gem "rubocop-performance", "~> 1.16.0", require: false

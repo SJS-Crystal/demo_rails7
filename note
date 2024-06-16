@@ -1,0 +1,63 @@
+
+# ====================== RESET DOCKER ======================
+# docker volume rm $(docker volume ls -q)
+# docker stop $(docker ps -aq) && docker rm $(docker ps -aq) && docker rmi $(docker images -q)
+
+
+
+
+
+
+
+
+# ====================== SETUP AWS CLI (if use Amazon ECR) ======================
+# apt install unzip
+# curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+# unzip awscliv2.zip
+# sudo ./aws/install
+# aws configure
+
+
+
+
+
+
+
+
+# ====================== PREPARE DEPLOY ======================
+# install docker, docker-compose, ssl on stg, pro server
+
+# set env, variable in gitlab with protect mode
+# run 'rails secret'   => get new secret_key_base
+# create credentials file and set secret_key_base:
+EDITOR=nano rails credentials:edit -e staging #=> return staging.key file
+# (Or set SECRET_KEY_BASE to env(variable gitlab)
+# set RAILS_MASTER_KEY to env(variable gitlab) from value in staging.key file
+
+# install and config Let's Encrypt
+apt install certbot
+certbot certonly --standalone -d your_domain.com #==> ssl path
+crontab -e
+    0 2 * * 1 /usr/bin/certbot renew --quiet
+
+# copy nginx.conf to stg server /home/nginx.conf
+# modifier /home/nginx.conf (domain_name, project path, ssl cert path)
+# edit letsencrypt path docker-compose.staging.yml
+
+
+
+
+
+# ====================== OTHERS ======================
+# use docker-compose
+# dynamic version for docker image
+# seed db in first deploy time
+# trigger accroding branch, merge
+# report test to pipline use artifact gitlab
+# promote to staging/production
+# caching in pipline execution
+
+# ssh root@159.223.61.210 -i ../.ssh/digitalocean
+# cat /etc/os-release
+# nginx -s reload # after edit /etc/nginx/conf.d/default.conf
+# git config --global push.autoSetupRemote true

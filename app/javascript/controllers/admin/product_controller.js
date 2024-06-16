@@ -1,4 +1,4 @@
-import { setInputDestroyStatus } from '../common_functions'
+import { setInputDestroyStatus } from "controllers/common_functions"
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {

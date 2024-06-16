@@ -465,8 +465,8 @@ body,
   font-family: FontAwesome;
   font-style: normal;
   font-weight: normal;
-  src: url("fonts/fontawesome-webfont.eot@v=#4.0.3");
-  src: url("fonts/fontawesome-webfont.eot@#iefix&v=#4.0.3") format("embedded-opentype"), url("fonts/fontawesome-webfont.woff@v=#4.0.3") format("woff"), url("fonts/fontawesome-webfont.ttf@v=#4.0.3") format("truetype"), url("fonts/fontawesome-webfont.svg.xml#fontawesomeregular?v=#4.0.3") format("svg");
+  src: url("../css/fonts/fontawesome-webfont.eot@v=#4.0.3");
+  src: url("../css/fonts/fontawesome-webfont.eot@#iefix&v=#4.0.3") format("embedded-opentype"), url("../css/fonts/fontawesome-webfont.woff@v=#4.0.3") format("woff"), url("../css/fonts/fontawesome-webfont.ttf@v=#4.0.3") format("truetype"), url("../css/fonts/fontawesome-webfont.svg.xml#fontawesomeregular?v=#4.0.3") format("svg");
 }
 .tocify-wrapper > .search:before,
 .content aside.notice:before,
@@ -871,7 +871,7 @@ body {
   padding-top: 0.5em;
   padding-bottom: 0.5em;
   border-bottom: 1px solid #ccc;
-  
+
   border-top: 1px solid #ddd;
   background-image: linear-gradient(to bottom, #fff, #f9f9f9);
 }
@@ -967,7 +967,6 @@ body {
 .content aside {
   padding-top: 1em;
   padding-bottom: 1em;
-#a0c6da
   margin-top: 1.5em;
   margin-bottom: 1.5em;
   background: #8fbcd4;
@@ -975,11 +974,9 @@ body {
 }
 .content aside.warning {
   background-color: #c97a7e;
-#d18e91
 }
 .content aside.success {
   background-color: #6ac174;
-#80ca89
 }
 .content aside:before {
   vertical-align: middle;
@@ -1003,7 +1000,6 @@ body {
   float: right;
   clear: right;
   box-sizing: border-box;
-rgba(0,0,0,0.4)
 }
 .content pre > p,
 .content blockquote > p {

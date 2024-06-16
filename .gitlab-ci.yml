@@ -1,0 +1,92 @@
+.build_image_template: &build_image_template
+  stage: build
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+    DYNAMIC_TAG: $CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA
+  services:
+    - docker:20.10.16-dind
+  image: docker:20.10.16
+  script:
+    - echo $DOCKER_TOKEN | docker login -u $DOCKER_USERNAME --password-stdin
+    - docker build -t $IMAGE_NAME:$DYNAMIC_TAG .
+    - docker push $IMAGE_NAME:$DYNAMIC_TAG
+
+.deploy_template: &deploy_template
+  stage: deploy
+  variables:
+    DYNAMIC_TAG: $CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA
+  before_script:
+    - chmod 400 $PRIVATE_SSH_KEY
+  script:
+    - ssh -i $PRIVATE_SSH_KEY -o StrictHostKeyChecking=no root@$SERVER_IP 'mkdir -p /home/project/'
+    - scp -i $PRIVATE_SSH_KEY -o StrictHostKeyChecking=no docker-compose.staging.yml root@$SERVER_IP:/home/project/
+    - scp -i $PRIVATE_SSH_KEY -o StrictHostKeyChecking=no $ENV root@$SERVER_IP:/home/project/.env
+    - scp -i $PRIVATE_SSH_KEY -o StrictHostKeyChecking=no $SETUP_DEPLOY_SCRIPT root@$SERVER_IP:/home/project/setup_deploy.sh
+    - ssh root@$SERVER_IP -i $PRIVATE_SSH_KEY -o StrictHostKeyChecking=no "
+      export IMAGE_TAG=$DYNAMIC_TAG &&
+      export IMAGE_NAME=$IMAGE_NAME &&
+      echo $DOCKER_TOKEN | docker login -u $DOCKER_USERNAME --password-stdin &&
+      cd /home/project &&
+      docker-compose -f docker-compose.staging.yml down &&
+      docker-compose -f docker-compose.staging.yml up -d"
+
+stages:
+  - test
+  - build
+  - deploy
+
+cache:
+  paths:
+    - vendor/bundle
+
+test:
+  stage: test
+  image: ruby:3.1.2
+  services:
+    - postgres:16
+  variables:
+    POSTGRES_DB: test_database
+    POSTGRES_USER: usertest
+    POSTGRES_PASSWORD: password123123
+    DATABASE_URL: "postgresql://usertest:password123123@postgres:5432/test_database"
+
+  before_script:
+    - bundle config set --local deployment true
+    - bundle install -j $(nproc)
+  script:
+    - bundle exec rubocop
+    - bundle exec rspec
+  rules:
+    - if: '($CI_PIPELINE_SOURCE == "merge_request_event" && ($CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master" || $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"))'
+
+build_image:
+  <<: *build_image_template
+  environment:
+    name: staging
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "develop"'
+
+deploy:
+  <<: *deploy_template
+  environment:
+    name: staging
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "develop"'
+
+build_image_production:
+  <<: *build_image_template
+  environment:
+    name: production
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "master"'
+      when: manual
+      allow_failure: true
+
+deploy_production:
+  <<: *deploy_template
+  environment:
+    name: production
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "master"'
+      when: manual
+      allow_failure: true
