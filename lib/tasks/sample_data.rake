@@ -4,13 +4,6 @@ namespace :db do
     require 'faker'
 
     # Admins
-    Admin.create!(
-      email: 'admin@example.com',
-      name: 'Admin',
-      password: '123123',
-      password_confirmation: '123123',
-      confirmed_at: Time.zone.now
-    )
     admins = []
     10.times do
       admins << Admin.new(
@@ -22,14 +15,6 @@ namespace :db do
     end
     Admin.import! admins, validate: false
     puts 'Admins created!'
-
-    # Currencies
-    currencies = []
-    20.times do
-      currencies << Currency.new(name: Faker::Currency.unique.code)
-    end
-    Currency.import! currencies, validate: false
-    puts 'Currencies created!'
 
     # Brands
     brands = []
@@ -69,7 +54,7 @@ namespace :db do
     Admin.all.each do |admin|
       20.times do
         clients << Client.new(
-          username: Faker::Internet.unique.username.first(10),
+          username: Faker::Internet.unique.username(specifier: 5..10),
           name: Faker::Name.name.first(10),
           password: 'password',
           admin_id: admin.id,
